@@ -21,7 +21,7 @@ export default function Labs() {
            Lab 3: JavaScript Fundamentals </Link>
        </li>
        <li>
-         <Link href="/" id="wd-kambaz-link">
+         <Link href="/Account/Signin" id="wd-kambaz-link">
            Kambaz </Link>
        </li>
      </ul>
