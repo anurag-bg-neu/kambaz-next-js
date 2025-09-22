@@ -111,17 +111,12 @@ export default function AssignmentEditor() {
                 <input type="date" defaultValue="2024-05-20" id="wd-available-until"/>
             </td>
         </tr>
-        <tr>
-            <br />
-            <td colSpan={3} style={{ borderBottom: "1px solid grey" }}></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td><br />
-            <button>Cancel</button>
-            <button>Save</button>
-        </tr>
         </tbody>
       </table>
+    <div style={{ borderTop: "1px solid grey", margin: "20px 0", width:"33%"}}></div>
+    <div style={{ textAlign: "left", marginLeft: "25%"}}>
+    <button style={{marginRight: "5px"}}>Cancel</button>
+    <button>Save</button>
+    </div>
     </div>
 );}
