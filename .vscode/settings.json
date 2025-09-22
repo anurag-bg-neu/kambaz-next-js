@@ -1,0 +1,9 @@
+{
+  // Enable word wrap for the workspace so long lines wrap in the editor window
+  "editor.wordWrap": "on",
+  // Using `editor.wordWrap: "on"` will wrap at the viewport width, so no wordWrapColumn is needed here.
+  // Use hyphenation/soft wrapping behavior — keep indentation for wrapped lines
+  "editor.wrappingIndent": "same",
+  // Optional: reduce minimap clutter when working with wrapped text
+  "editor.minimap.enabled": false
+}
