@@ -12,6 +12,6 @@ export default function CourseNavigation() {
       <Link href="/Courses/1234/Quizzes" id="wd-course-quizzes-link">Quizzes
         </Link><br/>
       <Link href="/Courses/1234/Grades" id="wd-course-grades-link">Grades</Link><br/>
-      <Link href="/Courses/1234/People/Table" id="wd-course-people-link">People</Link><br/>
+      <Link href="/Courses/1234/People" id="wd-course-people-link">People</Link><br/>
     </div>
   );}

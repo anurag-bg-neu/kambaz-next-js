@@ -12,17 +12,22 @@ export default function Assignments() {
             <Link href="/Courses/1234/Assignments/123" className="wd-assignment-link"> A1 - ENV + HTML </Link>
             <br />
             <div className="wd-assignments-desc">Multiple | <b>Not Available until</b> May 6 at 12:00am |</div>
-            <div className="wd-assignments-desc"><b>Due</b> May 13 at 11:59pm | 100 pts</div>
+            <div className="wd-assignments-desc"><b>Due</b> May 13 at 11:59pm | -/100 pts</div>
         </li>
         <li className="wd-assignment-list-item">
             <Link href="/Courses/1234/Assignments/234"  className="wd-assignment-link"> A2 - CSS + BOOTSTRAP </Link> <br />
             <div className="wd-assignments-desc">Multiple | <b>Not Available until</b> May 13 at 12:00am |</div>
-            <div className="wd-assignments-desc"><b>Due</b> May 20 at 11:59pm | 100 pts</div>
+            <div className="wd-assignments-desc"><b>Due</b> May 20 at 11:59pm | -/100 pts</div>
         </li>
         <li className="wd-assignment-list-item">
             <Link href="/Courses/1234/Assignments/345"  className="wd-assignment-link"> A3 - JAVASCRIPT + REACT </Link> <br />
             <div className="wd-assignments-desc">Multiple | <b>Not Available until</b> May 20 at 12:00am |</div>
-            <div className="wd-assignments-desc"><b>Due</b> May 27 at 11:59pm | 100 pts</div>
+            <div className="wd-assignments-desc"><b>Due</b> May 27 at 11:59pm | -/80 pts</div>
+        </li>
+        <li className="wd-assignment-list-item">
+            <Link href="/Courses/1234/Assignments/345"  className="wd-assignment-link"> Q1 - HTML + REACT </Link> <br />
+            <div className="wd-assignments-desc"><b>Not Available until</b> May 25 at 12:00am | </div>
+            <div className="wd-assignments-desc"><b>Due</b> Sep 29 at 11:59pm | -/29 pts</div>
         </li>
       </ul>
     </div>
