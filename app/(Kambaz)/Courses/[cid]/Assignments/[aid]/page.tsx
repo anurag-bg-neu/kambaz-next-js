@@ -4,7 +4,7 @@ export default function AssignmentEditor() {
       <label htmlFor="wd-name"><h3>Assignment Name</h3></label>
       <input id="wd-name" defaultValue="A1 - ENV + HTML" /><br /><br />
       <textarea id="wd-description" defaultValue="The assignment is available online Submit a link to the landing page of
-        your Web application running on Netlify. The  landing pasge should include
+        your Web application running on Vercel. The  landing pasge should include
         the following: Your full name and section Links to each of the lab
         assignments Links to the Kambaz application
         Links to all relevant source code repositories
@@ -24,7 +24,7 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-points">Points</label>
           </td>
           <td>
-            <input id="wd-points" defaultValue={100} />
+            <input id="wd-points" defaultValue={100} type="number"/>
             <br /> <br />
           </td>
         </tr>
@@ -50,8 +50,7 @@ export default function AssignmentEditor() {
             <select id="wd-display-grade-as" defaultValue="PERCENTAGE">
                 <option value="ROMAN">Roman</option>
                 <option value="NUMERIC">Numeric</option>
-                <option value="PERCENTAGE">
-                    Percentage</option>
+                <option value="PERCENTAGE">Percentage</option>
                 <option value="ALPHANUMERIC">Alpha Numeric</option>
             </select>
             <br /> <br />
@@ -90,7 +89,7 @@ export default function AssignmentEditor() {
             <td></td>
             <td>
                 <label htmlFor="wd-assign-to">Assign to</label><br/>
-                <input type="search" placeholder="Everyone" id="wd-assign-to"/><br /><br />
+                <input type="search" placeholder="Everyone" id="wd-assign-to" defaultValue="Every One"/><br /><br />
             </td>
         </tr>
         <tr>
@@ -113,7 +112,7 @@ export default function AssignmentEditor() {
         </tr>
         </tbody>
       </table>
-    <div style={{ borderTop: "1px solid grey", margin: "20px 0", width:"33%"}}></div>
+    <div style={{ borderTop: "1px solid grey", margin: "20px 0"}}></div>
     <div style={{ textAlign: "left", marginLeft: "25%"}}>
     <button style={{marginRight: "5px"}}>Cancel</button>
     <button>Save</button>

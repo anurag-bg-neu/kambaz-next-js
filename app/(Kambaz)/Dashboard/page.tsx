@@ -12,14 +12,48 @@ export default function Dashboard() {
             <div>
               <h5> CS1234 React JS </h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                Full Stack software developer with ReactJS.
               </p>
-              <button> Go </button>
+              <button> Go </button><br /><br />
             </div>
           </Link>
         </div>
-        <div className="wd-dashboard-course"> ... </div>
-        <div className="wd-dashboard-course"> ... </div>
+        <div className="wd-dashboard-course">
+          <Link href="/Courses/2345" className="wd-dashboard-course-link">
+            <Image src="/images/reactjs.jpg" alt="React JS course cover" width={200} height={150} />
+            <div>
+              <h5> CS2345 Node JS </h5>
+              <p className="wd-dashboard-course-title">
+                Full NodeJS Course.
+              </p>
+              <button> Go </button><br /><br />
+            </div>
+          </Link>
+        </div>
+        <div className="wd-dashboard-course">
+          <Link href="/Courses/3456" className="wd-dashboard-course-link">
+            <Image src="/images/reactjs.jpg" alt="React JS course cover" width={200} height={150} />
+            <div>
+              <h5> CS3456 Express JS </h5>
+              <p className="wd-dashboard-course-title">
+                Full ExpressJS Course.
+              </p>
+              <button> Go </button><br /><br />
+            </div>
+          </Link>
+        </div>
+        <div className="wd-dashboard-course">
+          <Link href="/Courses/4567" className="wd-dashboard-course-link">
+            <Image src="/images/reactjs.jpg" alt="React JS course cover" width={200} height={150} />
+            <div>
+              <h5> CS4567 MongoDB </h5>
+              <p className="wd-dashboard-course-title">
+                Full MongoDB Course.
+              </p>
+              <button> Go </button><br /><br />
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
 );}
