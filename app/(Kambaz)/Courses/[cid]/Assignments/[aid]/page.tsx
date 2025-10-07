@@ -57,19 +57,21 @@ export default function AssignmentEditor() {
         </Form.Group>
 
         <Form.Group className="mb-2">
-            <div className="d-flex align-items-center gap-3">
+            <div className="d-flex gap-3">
             <div style={{width: "200px"}}>Submission Type</div>
-          <Form.Select defaultValue="ONLINE">
-            <option value="OFFLINE">Offline</option>
-            <option value="ONLINE">Online</option>
-          </Form.Select>
-          <Form.Group className="mb-2">
-          <Form.Check type="checkbox" id="wd-text-entry" label="Text Entry" />
-          <Form.Check type="checkbox" id="wd-website-url" label="Website URL" />
-          <Form.Check type="checkbox" id="wd-media-recordings" label="Media Recordings" />
-          <Form.Check type="checkbox" id="wd-student-annotation" label="Student Annotation" />
-          <Form.Check type="checkbox" id="wd-file-upload" label="File Upload" />
-        </Form.Group>
+            <div  className="flex-column border-gray">
+            <Form.Select defaultValue="ONLINE">
+                <option value="OFFLINE">Offline</option>
+                <option value="ONLINE">Online</option>
+            </Form.Select>
+            <Form.Group className="mb-2">
+            <Form.Check type="checkbox" id="wd-text-entry" label="Text Entry" />
+            <Form.Check type="checkbox" id="wd-website-url" label="Website URL" />
+            <Form.Check type="checkbox" id="wd-media-recordings" label="Media Recordings" />
+            <Form.Check type="checkbox" id="wd-student-annotation" label="Student Annotation" />
+            <Form.Check type="checkbox" id="wd-file-upload" label="File Upload" />
+            </Form.Group>
+            </div>
             </div>
         </Form.Group>
 
