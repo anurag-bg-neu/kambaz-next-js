@@ -8,8 +8,11 @@
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
-  min-width: 500px;
+  min-width: 672px;
   z-index: 2;
+}
+#module-below-toggle{
+  min-width: 672px;
 }
 
 .studentView {
