@@ -40,6 +40,6 @@ export default function ModulesControls() {
      <Button variant="secondary" size="lg" className="float-end me-1" id="wd-collapse-all">
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        Collapse All
-     </Button>
+     </Button><br/>
    </div>
 );}

@@ -5,7 +5,7 @@ import { Col, Row } from "react-bootstrap";
 
 export default function AssignmentEditor() {
   return (
-    <div id="wd-assignments-editor" style={{ maxWidth: "700px", margin: "auto" }}>
+    <div id="wd-assignments-editor" style={{minWidth: "600px", maxWidth: "700px", margin: "auto" }}>
       <Form>
         <Row>
             <Form.Group className="mb-2">
