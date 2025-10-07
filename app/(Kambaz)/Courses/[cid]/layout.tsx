@@ -5,6 +5,7 @@ import CourseNavigation from "./Navigation";
 import KambazNavigation from "./KambazNavigation";
 import { FaAlignJustify } from "react-icons/fa";
 import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosClose } from 'react-icons/io';
 
 import './styles.css';
 
@@ -40,11 +41,11 @@ export default function CoursesLayout(
               Courses {cid}
             </div>
             <div
-            className="d-md-none"
-            onClick={() => setShowMenuCourse(!showMenuCourse)}
-            style={{ cursor: "pointer" }}
+              className="d-md-none"
+              onClick={() => setShowMenuCourse(!showMenuCourse)}
+              style={{ cursor: "pointer" }}
             >
-              <IoIosArrowDown />
+              {showMenuCourse ? <IoIosClose className="fs-1" /> : <IoIosArrowDown className="fs-2" />}
             </div>
             <div className="btn btn-secondary btn-lg d-none d-md-block studentView">
               Student View

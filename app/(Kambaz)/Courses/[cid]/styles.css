@@ -40,7 +40,6 @@
   justify-content: flex-start;
   align-items: flex-start;
   z-index: 1;
-  font-size: 1.5rem;
 }
 
 .dropdown-menu-overlay, .dropdown-menu-overlay-kambaz {
@@ -48,7 +47,6 @@
   width: 100%;
   box-shadow: 4px 0 10px rgba(0,0,0,0.2);
   animation: slideDown 0.25s ease-in-out forwards;
-
 }
 
 @keyframes slideDown {
