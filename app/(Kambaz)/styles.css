@@ -35,3 +35,17 @@ body * {
 .wd-lesson {
   border-left: 3px solid green !important;
 }
+
+.my-hover-btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.my-hover-btn:hover {
+  background-color: white !important;
+}
+
+.my-hover-btn:hover,
+.my-hover-btn:hover svg,
+.my-hover-btn:hover div {
+  color: red !important;
+}
