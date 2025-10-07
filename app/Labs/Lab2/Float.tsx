@@ -1,22 +1,20 @@
+import Image from "next/image";
+
 export default function Float() {
   return (
 <div id="wd-float-divs">
  <h2>Float</h2>
  <div>
-   <img className="wd-float-right"
-     src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
+   <Image className="wd-float-right" alt="sample-para-1" src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
-   <img className="wd-float-left"
-     src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
+   <Image className="wd-float-left" alt="sample-para-2" src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
-   <img className="wd-float-right"
-     src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
+   <Image className="wd-float-right" alt="sample-para-3" src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
-   <img className="wd-float-left"
-     src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
+   <Image className="wd-float-left" alt="sample-para-4" src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
    <div className="wd-float-done"></div>
@@ -30,8 +28,7 @@ export default function Float() {
      Blue </div>
    <div className="wd-float-left wd-dimension-portrait wd-bg-color-red">
      Red </div>
-   <img className="wd-float-right"
-     src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
+   <Image className="wd-float-right" alt="starship-image" src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
    <div className="wd-float-done"></div>
  </div>
 </div>

@@ -6,12 +6,14 @@ import { FaRegCircleUser, FaEnvelopeOpenText, FaRegClock } from "react-icons/fa6
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 
+
 import Link from "next/link";
+import Image from "next/image";
 export default function KambazNavigation() {
  return (
    <ListGroup className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2" style={{ width: 95 }} id="wd-kambaz-navigation">
      <ListGroupItem className="bg-black border-0" as="a" target="_blank" href="https://www.northeastern.edu/" id="wd-neu-link">
-       <img src="/images/NEU_Red.png" width="70px" alt="Northeastern University" />
+       <Image src="/images/NEU_Red.png" width={70} height={70} alt="Northeastern University" />
      </ListGroupItem>
      <ListGroupItem className="border-0 bg-black text-center">
        <Link href="/Account" id="wd-account-link" className="text-white text-decoration-none">

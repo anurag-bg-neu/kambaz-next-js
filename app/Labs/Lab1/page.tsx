@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Lab1() {
   return (
     <div id="wd-lab1">
@@ -152,11 +154,11 @@ export default function Lab1() {
       <div id="wd-images">
         <h4>Image tag</h4>
         Loading an image from the internet: <br />
-        <img id="wd-starship" width="400px" src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" alt="Image of Starship"/>
+        <Image id="wd-starship" width={400} src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" alt="Image of Starship"/>
         <br />
         Loading a local image:
         <br />
-        <img id="wd-teslabot" src="/images/teslabot.jpg" height="200px" alt="Image of Tesla Bot"/>
+        <Image id="wd-teslabot" src="/images/teslabot.jpg" height={200} alt="Image of Tesla Bot"/>
       </div>
       <div id="wd-forms">
         <h4>Form Elements</h4>
@@ -175,7 +177,6 @@ export default function Lab1() {
           <textarea id="wd-textarea" cols={30} rows={10} defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">
           </textarea>
           <h5 id="wd-buttons">Buttons</h5>
-          {/* <button type="button" onClick={() => alert("Life is Good!")} id="wd-all-good"> Hello World! </button> */}
         </form>
 
      </div>

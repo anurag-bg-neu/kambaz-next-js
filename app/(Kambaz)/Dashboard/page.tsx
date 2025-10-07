@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
-import { Card, CardImg, CardBody, CardTitle, CardText, Button } from "reactstrap";
+import { Card, CardImg, CardBody, CardTitle, CardText} from "reactstrap";
 
 export default function Dashboard() {
   return (
