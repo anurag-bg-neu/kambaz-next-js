@@ -1,5 +1,4 @@
-/* Existing style */
-.courseUnderline {
+.courseBackground {
   border: 1px solid #6c757d;
   border-top: none;
   border-left: none;
@@ -15,7 +14,6 @@
   border: none;
   color: black;
 }
-
 .studentView:hover {
   color: white;
 }
@@ -49,8 +47,8 @@
 }
 
 /* Change background and text for screens ≤ md (768px) */
-@media (max-width: 768px) {
-  .courseUnderline {
+@media (max-width: 766px) {
+  .courseBackground {
     position: relative;
     background-color: black;
     color: white;
@@ -60,12 +58,11 @@
   }
 
   /* Optional: adjust icons and button colors inside */
-  .courseUnderline .btn {
+  .courseBackground .btn {
     color: white;
     border-color: #6c757d;
   }
-
-  .courseUnderline svg {
+  .courseBackground svg {
     color: white; /* For your FaAlignJustify icon and others */
   }
 

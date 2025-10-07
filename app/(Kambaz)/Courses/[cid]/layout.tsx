@@ -20,7 +20,7 @@ export default function CoursesLayout(
   return (
     <div id="wd-courses">
       <h2 className="text-danger d-flex align-items-center">
-        <div className="courseUnderline">
+        <div className="courseBackground">
             <FaAlignJustify
               id="toggle-icon"
               className="me-4 fs-4 mb-1 d-md-none"
@@ -33,7 +33,9 @@ export default function CoursesLayout(
             <div className="d-md-none">
               <IoIosArrowDown />
             </div>
-            <div className="btn btn-secondary btn-lg d-none d-md-block studentView">Student View</div>
+            <div className="btn btn-secondary btn-lg d-none d-md-block studentView">
+              Student View
+            </div>
         </div>
       </h2>
 
