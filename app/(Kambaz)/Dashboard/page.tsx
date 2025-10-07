@@ -10,7 +10,7 @@ export default function Dashboard() {
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
       <h2 id="wd-dashboard-published">Published Courses (24)</h2> <hr />
       <div id="wd-dashboard-courses">
-        <Row s={2} md={3} lg={4} className="g-4">
+        <Row s={2} md={3} lg={4} xl={5} xxl={7} className="g-4">
           <Col className="wd-dashboard-course">
             <Card>
              <Link href="/Courses/1234/Home" className="wd-dashboard-course-link text-decoration-none text-dark">
