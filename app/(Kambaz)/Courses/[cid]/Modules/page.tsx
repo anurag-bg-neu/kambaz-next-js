@@ -6,7 +6,7 @@ import { BsGripVertical } from "react-icons/bs";
 
 export default function Modules() {
   return (
-  <div>
+  <div id="module-below-toggle">
     <ModulesControls /><br /><br /><br /><br />
     <ListGroup className="rounded-0" id="wd-modules" style={{minWidth: "500px"}}>
       <ListGroupItem className="wd-module p-0 mb-5 fs-5 border-gray">

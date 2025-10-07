@@ -92,4 +92,9 @@
   #wd-home .flex-fill.me-3 {
     margin-right: 0 !important; /* override Bootstrap's me-3 */
   }
+
+  #module-below-toggle{
+    position: relative;
+    top: 75px;
+  }
 }
