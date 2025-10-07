@@ -2,10 +2,11 @@
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
+import "./styles.css";
 
 export default function AssignmentEditor() {
   return (
-    <div id="wd-assignments-editor" style={{minWidth: "600px", maxWidth: "700px", margin: "auto" }}>
+    <div id="wd-assignments-editor">
       <Form>
         <Row>
             <Form.Group className="mb-2">

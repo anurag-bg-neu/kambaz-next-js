@@ -12,7 +12,7 @@ export default function Assignments() {
     <div id="wd-assignments">
       <br />
       <ModulesControls /><br /><br />
-      <ListGroup className="rounded-0" id="wd-assignments" style={{minWidth: "687px"}}>
+      <ListGroup className="rounded-0" id="wd-assignments" style={{minWidth: "672px"}}>
       <ListGroupItem className="wd-assignment p-0 mb-5 fs-5 border-gray">
         <div className="wd-title p-3 ps-2 bg-secondary d-flex">
           <BsGripVertical className="me-2 fs-3" />
