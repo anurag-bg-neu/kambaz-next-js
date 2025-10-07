@@ -75,7 +75,7 @@ export default function KambazNavigation() {
         </ListGroupItem>
       </Link>
 
-      <Link href="/History" className="text-decoration-none">
+      <Link href="/HistoryFolder" className="text-decoration-none">
         <ListGroupItem className="my-hover-btn border-0 bg-black text-center">
           <FaRegClock className="fs-3 text-danger" />
           <div className="text-white">History</div>
