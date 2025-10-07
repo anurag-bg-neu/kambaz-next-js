@@ -1,121 +1,99 @@
+"use client";
+import Form from "react-bootstrap/Form";
+import { Button } from "react-bootstrap";
+
 export default function AssignmentEditor() {
   return (
-    <div id="wd-assignments-editor">
-      <label htmlFor="wd-name"><h3>Assignment Name</h3></label>
-      <input id="wd-name" defaultValue="A1 - ENV + HTML" /><br /><br />
-      <textarea id="wd-description" defaultValue="The assignment is available online Submit a link to the landing page of
-        your Web application running on Vercel. The  landing pasge should include
-        the following: Your full name and section Links to each of the lab
-        assignments Links to the Kambaz application
-        Links to all relevant source code repositories
-        The Kambaz application should include a link to navigate back
-        to the landing page.">
-      </textarea>
-      <br />
-      <table>
-        <thead>
-            <tr>
-            <th><br /></th>
-            </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td align="right" valign="top">
-            <label htmlFor="wd-points">Points</label>
-          </td>
-          <td>
-            <input id="wd-points" defaultValue={100} type="number"/>
-            <br /> <br />
-          </td>
-        </tr>
-        <tr>
-            <td align="right" valign="top">
-            <label  htmlFor="wd-group"> Assignment Group </label>
-            </td>
-            <td>
-            <select id="wd-group" defaultValue="ASSIGNMENTS">
-                <option value="ASSIGNMENTS ">ASSIGNMENTS </option>
-                <option value="ASSIGNMENTS1 ">ASSIGNMENTS 1 </option>
-                <option value="ASSIGNMENTS2 "> ASSIGNMENTS 2 </option>
-                <option value="ASSIGNMENTS3 ">ASSIGNMENTS 3 </option>
-            </select>
-            <br /> <br />
-            </td>
-        </tr>
-        <tr>
-            <td align="right" valign="top">
-                <label  htmlFor="wd-display-grade-as"> Display Grade as </label>
-            </td>
-            <td>
-            <select id="wd-display-grade-as" defaultValue="PERCENTAGE">
-                <option value="ROMAN">Roman</option>
-                <option value="NUMERIC">Numeric</option>
-                <option value="PERCENTAGE">Percentage</option>
-                <option value="ALPHANUMERIC">Alpha Numeric</option>
-            </select>
-            <br /> <br />
-            </td>
-        </tr>
-        <tr>
-            <td align="right" valign="top">
-                <label  htmlFor="wd-submission-type"> Submission Type </label>
-            </td>
-            <td>
-            <select id="wd-submission-type" defaultValue="ONLINE">
-                <option value="OFFLINE">Offline</option>
-                <option value="ONLINE">Online</option>
-            </select>
-            <br /> <br />
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <label>Online Entry Options</label><br/>
-                <input type="checkbox" name="check-genre" id="wd-text-entry"/>
-                <label htmlFor="wd-text-entry">Text Entry</label><br/>
-                <input type="checkbox" name="check-genre" id="wd-website-url"/>
-                <label htmlFor="wd-website-url">Website URL</label><br/>
-                <input type="checkbox" name="check-genre" id="wd-media-recordings"/>
-                <label htmlFor="wd-media-recordings">Media Recordings</label><br/>
-                <input type="checkbox" name="check-genre" id="wd-student-annotation"/>
-                <label htmlFor="wd-student-annotation">Student Annotation</label><br />
-                <input type="checkbox" name="check-genre" id="wd-file-upload"/>
-                <label htmlFor="wd-file-upload">File Upload</label>
-                <br /><br />
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <label htmlFor="wd-assign-to">Assign to</label><br/>
-                <input type="search" placeholder="Everyone" id="wd-assign-to" defaultValue="Every One"/><br /><br />
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <label htmlFor="wd-due-date"> Due </label><br />
-                <input type="date" defaultValue="2024-05-13" id="wd-due-date"/><br/><br />
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <label htmlFor="wd-available-from"> Available from </label><br />
-                <input type="date" defaultValue="2024-05-06" id="wd-available-from"/>
-            </td>
-            <td>
-                <label htmlFor="wd-available-until"> Until </label><br />
-                <input type="date" defaultValue="2024-05-20" id="wd-available-until"/>
-            </td>
-        </tr>
-        </tbody>
-      </table>
-    <div style={{ borderTop: "1px solid grey", margin: "20px 0"}}></div>
-    <div style={{ textAlign: "left", marginLeft: "25%"}}>
-    <button style={{marginRight: "5px"}}>Cancel</button>
-    <button>Save</button>
+    <div id="wd-assignments-editor" style={{ maxWidth: "700px", margin: "auto" }}>
+      <Form>
+        <Form.Group className="mb-2">
+            <h6>Assignment Name</h6>
+            <Form.Control defaultValue="A1" placeholder="Assignment Name" />
+        </Form.Group>
+
+        <Form.Group className="mb-2">
+          <Form.Control
+            as="textarea"
+            rows={5}
+            defaultValue={`The assignment is available online Submit a link to the landing page of
+            your Web application running on Vercel. The landing page should include:
+            Your full name and section
+            Links to each of the lab assignments
+            Links to the Kambaz application
+            Links to all relevant source code repositories
+            The Kambaz application should include a link to navigate back to the landing page.`}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-2">
+            <div className="d-flex align-items-center gap-3">
+            <h6>Points</h6>
+            <Form.Control defaultValue={100} type="number" placeholder="Points" />
+            </div>
+        </Form.Group>
+
+        <Form.Group className="mb-2">
+            <div className="d-flex align-items-center gap-3">
+            <div style={{width: "200px"}}>Assignment Group</div>
+            <Form.Select defaultValue="ASSIGNMENTS">
+                <option value="ASSIGNMENTS">ASSIGNMENTS</option>
+                <option value="ASSIGNMENTS1">ASSIGNMENTS 1</option>
+                <option value="ASSIGNMENTS2">ASSIGNMENTS 2</option>
+                <option value="ASSIGNMENTS3">ASSIGNMENTS 3</option>
+            </Form.Select>
+            </div>
+        </Form.Group>
+
+        <Form.Group className="mb-2">
+            <div className="d-flex align-items-center gap-3">
+            <div style={{width: "200px"}}>Display Grade as</div>
+          <Form.Select defaultValue="PERCENTAGE">
+            <option value="ROMAN">Roman</option>
+            <option value="NUMERIC">Numeric</option>
+            <option value="PERCENTAGE">Percentage</option>
+            <option value="ALPHANUMERIC">Alpha Numeric</option>
+          </Form.Select>
+            </div>
+        </Form.Group>
+
+        <Form.Group className="mb-2">
+            <div className="d-flex align-items-center gap-3">
+            <div style={{width: "200px"}}>Submission Type</div>
+          <Form.Select defaultValue="ONLINE">
+            <option value="OFFLINE">Offline</option>
+            <option value="ONLINE">Online</option>
+          </Form.Select>
+          <Form.Group className="mb-2">
+          <Form.Check type="checkbox" id="wd-text-entry" label="Text Entry" />
+          <Form.Check type="checkbox" id="wd-website-url" label="Website URL" />
+          <Form.Check type="checkbox" id="wd-media-recordings" label="Media Recordings" />
+          <Form.Check type="checkbox" id="wd-student-annotation" label="Student Annotation" />
+          <Form.Check type="checkbox" id="wd-file-upload" label="File Upload" />
+        </Form.Group>
+            </div>
+        </Form.Group>
+
+        <Form.Group className="mb-2">
+          <Form.Control type="search" placeholder="Everyone" defaultValue="Every One" />
+        </Form.Group>
+
+        <Form.Group className="mb-2">
+          <Form.Control type="date" defaultValue="2024-05-13" placeholder="Due" />
+        </Form.Group>
+
+        <Form.Group className="mb-2">
+          <Form.Control type="date" defaultValue="2024-05-06" placeholder="Available From" />
+        </Form.Group>
+
+        <Form.Group className="mb-2">
+          <Form.Control type="date" defaultValue="2024-05-20" placeholder="Available Until" />
+        </Form.Group>
+
+        <div className="d-flex justify-content-start mt-4">
+          <Button variant="secondary" className="me-2">Cancel</Button>
+          <Button variant="primary">Save</Button>
+        </div>
+      </Form>
     </div>
-    </div>
-);}
+  );
+}

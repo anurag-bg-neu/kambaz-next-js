@@ -6,7 +6,7 @@ export default function Labs() {
      <ul>
         <li>
          <Link href="https://github.com/anurag-bg-neu/kambaz-next-js/" id="wd-anurag-git-link"  target="_blank">
-           ANURAG BHEEMAPPA GNANAMURTHY&#39;s  Git  Repo </Link>
+           ANURAG&#39;s  Git  Repository </Link>
        </li>
        <li>
          <Link href="/Labs/Lab1" id="wd-lab1-link">
