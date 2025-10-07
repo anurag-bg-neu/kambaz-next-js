@@ -1,0 +1,82 @@
+/* Existing style */
+.courseUnderline {
+  border: 1px solid #6c757d;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.studentView {
+  border: none;
+  color: black;
+}
+
+.studentView:hover {
+  color: white;
+}
+
+/* 🔹 Overlay Menu Styling */
+.overlay-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 1050;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.dropdown-menu-overlay {
+  background-color: #fff;
+  width: 250px;
+  height: 100%;
+  box-shadow: 4px 0 10px rgba(0,0,0,0.2);
+  animation: slideIn 0.25s ease-in-out;
+  padding: 15px;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Change background and text for screens ≤ md (768px) */
+@media (max-width: 768px) {
+  .courseUnderline {
+    position: relative;
+    background-color: black;
+    color: white;
+    padding: 15px;
+    padding-top: 35px;
+    top: -15px;
+  }
+
+  /* Optional: adjust icons and button colors inside */
+  .courseUnderline .btn {
+    color: white;
+    border-color: #6c757d;
+  }
+
+  .courseUnderline svg {
+    color: white; /* For your FaAlignJustify icon and others */
+  }
+
+  .wd-main-content-offset.p-3.flex-fill {
+  padding: 0px !important; /* removes padding only for small screens */
+  width: 100% !important;
+  margin: auto !important;
+  right: 0;
+  }
+
+  #wd-home .flex-fill.me-3 {
+    margin-right: 0 !important; /* override Bootstrap's me-3 */
+  }
+}
