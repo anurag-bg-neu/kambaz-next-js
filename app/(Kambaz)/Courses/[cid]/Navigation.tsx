@@ -31,8 +31,7 @@ export default function CourseNavigation(
             pathname.includes(link.label)
               ? "active"
               : ""
-          }`}
-        >
+          }`}>
           {link.label}
         </Link>
       ))}

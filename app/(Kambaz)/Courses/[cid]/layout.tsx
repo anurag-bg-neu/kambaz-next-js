@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { ReactNode } from "react";
 import CourseNavigation from "./Navigation";
-import KambazNavigation from "./KambazNavigation";
+import KambazNavigationToggle from "./KambazNavigationToggle";
 import { FaAlignJustify } from "react-icons/fa";
 import { IoIosArrowDown } from 'react-icons/io';
 import { IoIosClose } from 'react-icons/io';
@@ -28,7 +28,7 @@ export default function CoursesLayout(
         {showMenuKambaz && (
           <div className="overlay-menu-kambaz d-md-none" onClick={() => setShowMenuCourse(false)}>
             <div className="dropdown-menu-overlay-kambaz" onClick={(e) => e.stopPropagation()}>
-              <KambazNavigation />
+              <KambazNavigationToggle />
             </div>
           </div>
         )}
