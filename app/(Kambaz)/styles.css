@@ -14,6 +14,7 @@ body * {
   }
 }
 
+/* Active List Group Item Styles Below for SignUp & Signin */
 .list-group.wd > .list-group-item.active {
   color: black;
   background-color: white;
@@ -36,14 +37,14 @@ body * {
   border-left: 3px solid green !important;
 }
 
+
+/* Hover Button Styles Below */
 .my-hover-btn {
   transition: all 0.2s ease-in-out;
 }
-
 .my-hover-btn:hover {
   background-color: white !important;
 }
-
 .my-hover-btn:hover,
 .my-hover-btn:hover svg,
 .my-hover-btn:hover div {

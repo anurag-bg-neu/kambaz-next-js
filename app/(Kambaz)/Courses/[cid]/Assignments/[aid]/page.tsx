@@ -2,43 +2,45 @@
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import * as db from "../../../../Database";
 import "./styles.css";
 
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignment = db.assignments.find(
+    (a) => a._id === aid && a.course === cid
+  );
+  const assignmentsPath = `/Courses/${cid}/Assignments`;
+
   return (
     <div id="wd-assignments-editor">
       <Form>
         <Row>
             <Form.Group className="mb-2">
                 Assignment Name
-                <Form.Control defaultValue="A1" placeholder="Assignment Name" />
+                <Form.Control defaultValue={assignment?.title || ""} placeholder="Assignment Name" />
             </Form.Group>
 
             <Form.Group className="mb-2">
             <Form.Control
                 as="textarea"
                 rows={8}
-                defaultValue={`The assignment is available online
-                Submit a link to the landing page of your Web application running on Vercel.
-                The landing page should include:
-                Your full name and section
-                Links to each of the lab assignments
-                Links to the Kambaz application
-                Links to all relevant source code repositories
-                The Kambaz application should include a link to navigate back to the landing page.`}
+                defaultValue={assignment?.description || ""}
             />
             </Form.Group>
         </Row>
-
 
         <Row>
             <Col className="d-flex justify-content-end">Points</Col>
             <Col className="col-7">
                 <Form.Group className="mb-2">
-                <Form.Control defaultValue={100} type="number" placeholder="Points" />
+                <Form.Control defaultValue={assignment?.points} type="number" placeholder="Points" />
                 </Form.Group>
             </Col>
         </Row>
+
         <Row>
             <Col className="d-flex justify-content-end">Assignment Group</Col>
             <Col className="col-7">
@@ -52,6 +54,7 @@ export default function AssignmentEditor() {
             </Form.Group>
             </Col>
         </Row>
+
         <Row>
             <Col className="d-flex justify-content-end">Display Grade as</Col>
             <Col className="col-7">
@@ -96,30 +99,33 @@ export default function AssignmentEditor() {
 
                 <Form.Group className="mb-2">
                     <div><b>Due</b></div>
-                    <Form.Control type="date" placeholder="Due" />
+                    <Form.Control type="date" placeholder="Due" defaultValue={assignment?.dueDate}/>
                 </Form.Group>
 
                 <Row>
                     <Col>
                     <Form.Group className="mb-2">
                         <div><b>Available From</b></div>
-                        <Form.Control type="date" placeholder="MM-DD-YYYY" />
+                        <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.availableDate}/>
                     </Form.Group>
                     </Col>
                     <Col>
                     <Form.Group className="mb-2">
                         <div><b>Until</b></div>
-                        <Form.Control type="date" placeholder="MM-DD-YYYY" />
+                        <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.untilDate}/>
                     </Form.Group>
                     </Col>
                 </Row>
             </Col>
         </Row>
         <div className="d-flex justify-content-end mt-4">
-            <Button variant="secondary" className="me-2">Cancel</Button>
-            <Button variant="primary">Save</Button>
+            <Link href={assignmentsPath} passHref>
+                <Button variant="secondary" className="me-2">Cancel</Button>
+            </Link>
+            <Link href={assignmentsPath} passHref>
+                <Button variant="primary">Save</Button>
+            </Link>
         </div>
       </Form>
     </div>
-  );
-}
+  );}

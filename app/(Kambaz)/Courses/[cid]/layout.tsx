@@ -6,7 +6,8 @@ import KambazNavigation from "./KambazNavigation";
 import { FaAlignJustify } from "react-icons/fa";
 import { IoIosArrowDown } from 'react-icons/io';
 import { IoIosClose } from 'react-icons/io';
-
+import { courses } from "../../Database";
+import Breadcrumb from "./Breadcrumb";
 import './styles.css';
 
 export default function CoursesLayout(
@@ -15,7 +16,7 @@ export default function CoursesLayout(
   const [showMenuCourse, setShowMenuCourse] = useState(false);
   const [showMenuKambaz, setShowMenuKambaz] = useState(false);
   const [cid, setCid] = useState<string>("");
-
+  const course = courses.find((course) => course._id === cid);
   useEffect(() => {
     params.then(data => setCid(data.cid));
   }, [params]);
@@ -31,20 +32,18 @@ export default function CoursesLayout(
             </div>
           </div>
         )}
+
         <div className="courseBackground">
             <FaAlignJustify
               className="me-4 fs-4 mb-1 d-md-none"
               onClick={() => setShowMenuKambaz(!showMenuKambaz)}
-              style={{ cursor: "pointer" }}
-            />
+              style={{ cursor: "pointer" }} />
             <div className="d-flex align-items-center">
-              Courses {cid}
+              <Breadcrumb course={course} />
             </div>
-            <div
-              className="d-md-none"
+            <div className="d-md-none"
               onClick={() => setShowMenuCourse(!showMenuCourse)}
-              style={{ cursor: "pointer" }}
-            >
+              style={{ cursor: "pointer" }}>
               {showMenuCourse ? <IoIosClose className="fs-1" /> : <IoIosArrowDown className="fs-2" />}
             </div>
             <div className="btn btn-secondary btn-lg d-none d-md-block studentView">
@@ -56,14 +55,14 @@ export default function CoursesLayout(
       <div className="d-flex flex-column flex-md-row">
         {/* Sidebar for large screens */}
         <div className="d-none d-md-block">
-          <CourseNavigation />
+          <CourseNavigation params={params} />
         </div>
 
         {/* Overlay Dropdown for small screens */}
         {showMenuCourse && (
           <div className="overlay-menu d-md-none" onClick={() => setShowMenuCourse(false)}>
             <div className="dropdown-menu-overlay" onClick={(e) => e.stopPropagation()}>
-              <CourseNavigation />
+              <CourseNavigation params={params} />
             </div>
           </div>
         )}
