@@ -21,17 +21,18 @@ export default function KambazNavigationToggle() {
     { label: "HistoryFolder",    path: `/HistoryFolder`,    id: "wd-history-link",      icon: FaRegClock },
     { label: "Help",             path: `/Help`,             id: "wd-help-link",         icon: RxQuestionMarkCircled },
   ];
-  return (
-    <ListGroup>
-      {links.map((link) => (
-        <Link key={link.id} href={`/${link.path}`} className="text-decoration-none">
-          <ListGroupItem className="my-hover-btn border-0 text-center">
-            <div className="align-kambaz-items d-flex gap-2">
-              {link.icon({ className: "fs-2 text-danger"})}
-              <div className="text-danger">{link.label}</div>
-            </div>
-          </ListGroupItem>
-        </Link>
-      ))}
-    </ListGroup>
-  )};
+
+return (
+  <ListGroup>
+    {links.map((link) => (
+      <Link key={link.id} href={`/${link.path}`} className="text-decoration-none">
+        <ListGroupItem className="my-hover-btn border-0 text-center">
+          <div className="align-kambaz-items d-flex gap-2">
+            {link.icon({ className: "fs-2 text-danger"})}
+            <div className="text-danger">{link.label}</div>
+          </div>
+        </ListGroupItem>
+      </Link>
+    ))}
+  </ListGroup>
+)};
