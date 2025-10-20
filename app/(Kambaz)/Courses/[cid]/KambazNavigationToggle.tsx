@@ -20,7 +20,6 @@ export default function KambazNavigationToggle() {
     { label: "HistoryFolder",    path: `/HistoryFolder`,    id: "wd-history-link",      icon: FaRegClock },
     { label: "Help",             path: `/Help`,             id: "wd-help-link",         icon: RxQuestionMarkCircled },
   ];
-
 return (
   <ListGroup>
     {links.map((link) => (
