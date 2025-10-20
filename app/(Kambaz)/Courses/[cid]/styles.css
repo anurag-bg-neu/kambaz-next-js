@@ -65,6 +65,9 @@
 
 /* Change background and text for screens ≤ md (768px) */
 @media (max-width: 766px) {
+body{
+  margin-top: 70px;
+}
   .courseBackground {
     position: fixed;
     background-color: black;
@@ -98,5 +101,4 @@
     position: relative;
     top: 75px;
   }
-
 }

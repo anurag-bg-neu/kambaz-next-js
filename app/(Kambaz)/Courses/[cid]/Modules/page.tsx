@@ -13,11 +13,7 @@ export default function Modules() {
 
   return (
     <div id="module-below-toggle">
-      <ModulesControls />
-      <br />
-      <br />
-      <br />
-      <br />
+      <ModulesControls /><br /><br /><br />
 
       <ListGroup id="wd-modules" className="rounded-0">
         {modules
@@ -25,8 +21,7 @@ export default function Modules() {
           .map((module) => (
             <ListGroupItem
               key={module._id}
-              className="wd-module p-0 mb-5 fs-5 border-gray"
-            >
+              className="wd-module p-0 mb-5 fs-5 border-gray">
               <div className="wd-title p-3 ps-2 bg-secondary">
                 <BsGripVertical className="me-2 fs-3" /> {module.name}{" "}
                 <ModuleControlButtons />

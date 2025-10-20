@@ -8,17 +8,19 @@ import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import "./styles.css";
 import Link from "next/link";
+
 export default function KambazNavigationToggle() {
   const links = [
-    { label: "Account",          path: `/Account`,          id: "wd-account-link",      icon: FaRegCircleUser },
-    { label: "Dashboard",        path: `/Dashboard`,        id: "wd-dashboard-link",    icon: AiOutlineDashboard },
-    { label: "Labs",             path: `/Labs`,             id: "wd-labs-link",         icon: GoBeaker },
-    { label: "Courses",          path: `/Dashboard`,        id: "wd-courses-link",      icon: LiaBookSolid },
-    { label: "Calendar",         path: `/Calendar`,         id: "wd-calendar-link",     icon: IoCalendarOutline },
-    { label: "Inbox",            path: `/Inbox`,            id: "wd-inbox-link",        icon: FaEnvelopeOpenText },
-    { label: "HistoryFolder",    path: `/HistoryFolder`,    id: "wd-history-link",      icon: FaRegClock },
-    { label: "Help",             path: `/Help`,             id: "wd-help-link",         icon: RxQuestionMarkCircled },
+    { label: "Account",          path: `./Account/Signin`,   id: "wd-account-link",      icon: FaRegCircleUser },
+    { label: "Dashboard",        path: `./Dashboard`,        id: "wd-dashboard-link",    icon: AiOutlineDashboard },
+    { label: "Labs",             path: `./Labs`,             id: "wd-labs-link",         icon: GoBeaker },
+    { label: "Courses",          path: `./Dashboard`,        id: "wd-courses-link",      icon: LiaBookSolid },
+    { label: "Calendar",         path: `./Calendar`,         id: "wd-calendar-link",     icon: IoCalendarOutline },
+    { label: "Inbox",            path: `./Inbox`,            id: "wd-inbox-link",        icon: FaEnvelopeOpenText },
+    { label: "HistoryFolder",    path: `./HistoryFolder`,    id: "wd-history-link",      icon: FaRegClock },
+    { label: "Help",             path: `./Help`,             id: "wd-help-link",         icon: RxQuestionMarkCircled },
   ];
+
 return (
   <ListGroup>
     {links.map((link) => (
