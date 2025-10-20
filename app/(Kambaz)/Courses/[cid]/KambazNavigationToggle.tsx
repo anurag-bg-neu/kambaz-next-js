@@ -9,7 +9,6 @@ import { RxQuestionMarkCircled } from "react-icons/rx";
 import "./styles.css";
 import Link from "next/link";
 
-
 export default function KambazNavigationToggle() {
   const links = [
     { label: "Account",          path: `/Account`,          id: "wd-account-link",      icon: FaRegCircleUser },
