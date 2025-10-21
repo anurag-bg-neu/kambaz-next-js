@@ -44,7 +44,7 @@ export default function CoursesLayout(
             <div className="d-md-none"
               onClick={() => {setShowMenuCourse(!showMenuCourse); setShowMenuKambaz(false);}}
               style={{ cursor: "pointer" }}>
-              {showMenuCourse ? <IoIosClose className="fs-1" /> : <IoIosArrowDown className="fs-2" />}
+              {showMenuCourse ? <IoIosClose className="fs-1" /> : <IoIosArrowDown className="fs-1" />}
             </div>
             <div className="btn btn-secondary btn-lg d-none d-md-block studentView">
               Student View

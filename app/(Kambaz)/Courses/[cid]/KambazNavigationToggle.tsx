@@ -17,7 +17,7 @@ export default function KambazNavigationToggle() {
     { label: "Courses",          path: `./Dashboard`,        id: "wd-courses-link",      icon: LiaBookSolid },
     { label: "Calendar",         path: `./Calendar`,         id: "wd-calendar-link",     icon: IoCalendarOutline },
     { label: "Inbox",            path: `./Inbox`,            id: "wd-inbox-link",        icon: FaEnvelopeOpenText },
-    { label: "HistoryFolder",    path: `./HistoryFolder`,    id: "wd-history-link",      icon: FaRegClock },
+    { label: "History",          path: `./HistoryFolder`,    id: "wd-history-link",      icon: FaRegClock },
     { label: "Help",             path: `./Help`,             id: "wd-help-link",         icon: RxQuestionMarkCircled },
   ];
 
