@@ -1,10 +1,12 @@
 "use client";
 import { createSlice } from "@reduxjs/toolkit";
 import { enrollments } from "../Database";
-import { v4 as uuidv4 } from "uuid";
+
+const defaultEnrollment = { _id: "Dummy Id", user: "Dummy User Id", course: "Dummy Course Id" };
 
 const initialState = {
  enrollments: enrollments,
+ enrollment: defaultEnrollment,
 };
 
 const enrollmentSlice = createSlice({
@@ -12,24 +14,34 @@ const enrollmentSlice = createSlice({
  initialState,
  reducers: {
 
-   addNewEnrollment: (state, {payload} : { payload: { userId: string; courseId: string} }) => {
-     const newEnrollment = [
+   addNewEnrollment: (state, action) => {
+     const { enrollment } = action.payload;
+
+     const newEnrollments = [
       ...state.enrollments,
-      {_id: uuidv4(), user: payload.userId, course: payload.courseId}
-     ]
-     state.enrollments = newEnrollment;
+      { ...enrollment }
+     ];
+     state.enrollments = newEnrollments;
+     state.enrollment = defaultEnrollment;
    },
 
-   updateEnrollment: (state, { payload: course }) => {
-
+   updateEnrollment: (state, { payload: enrollment }) => {
+    const newCourses = state.enrollments.map((c) =>
+       c._id === enrollment._id ? enrollment : c
+     );
+     state.enrollments = newCourses;
+     state.enrollment = defaultEnrollment;
    },
 
-   deleteEnrollment: (state, { payload: courseId }) => {
-
+   deleteEnrollment: (state, { payload: enrollmentId }) => {
+    const newEnrollments = state.enrollments.filter(
+       (enrollment) => enrollment._id !== enrollmentId
+     );
+     state.enrollments = newEnrollments
    },
 
-   setEnrollment: (state, { payload: course }) => {
-
+   setEnrollment: (state, { payload: enrollment }) => {
+     state.enrollment = enrollment;
    },
  },
 });

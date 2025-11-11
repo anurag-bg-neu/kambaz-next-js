@@ -4,7 +4,7 @@ import { courses } from "../Database";
 
 const initialState = {
  courses: courses,
- course: { name: "New Course", description: "New Description" },
+ course: { name: "New Course", description: "New Description", _id: "Dummy Id" },
  showMenuKambaz: false,
  showMenuCourse: false,
  FaAlignCourseNav : true,
@@ -15,13 +15,15 @@ const coursesSlice = createSlice({
  initialState,
  reducers: {
 
-   addNewCourse: (state, { payload: course }) => {
+   addNewCourse: (state, action) => {
+    const { course } = action.payload;
+
      const newCourses = [
         ...state.courses,
       { ...course }
     ];
      state.courses = newCourses;
-     state.course = { name: "", description: ""};
+     state.course = { name: "", description: "", _id: ""};
    },
 
    updateCourse: (state, { payload: course }) => {
@@ -29,7 +31,7 @@ const coursesSlice = createSlice({
        c._id === course._id ? course : c
      );
      state.courses = newCourses;
-     state.course = { name: "", description: ""};
+     state.course = { name: "", description: "", _id: ""};
    },
 
    deleteCourse: (state, { payload: courseId }) => {
