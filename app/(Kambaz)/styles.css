@@ -15,7 +15,7 @@ body * {
 }
 
 /* Active List Group Item Styles Below for SignUp & Signin */
-.list-group.wd > .list-group-item.active {
+.list-group-item.active {
   color: black;
   background-color: white;
   border-left: 3px solid black !important;

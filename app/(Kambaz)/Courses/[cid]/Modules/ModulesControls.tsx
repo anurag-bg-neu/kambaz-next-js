@@ -1,13 +1,20 @@
+import { useState } from "react";
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from './GreenCheckmark';
 import { MdDoNotDisturbAlt } from "react-icons/md";
+import ModuleEditor from "./ModuleEditor";
 
+export default function ModulesControls(
+  { moduleName, setModuleName, addModule }:
+  { moduleName: string; setModuleName: (title: string) => void; addModule: () => void; }) {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-export default function ModulesControls() {
  return (
    <div id="wd-modules-controls" className="text-nowrap">
-     <Button variant="danger" size="lg" className="float-end" id="wd-add-module-btn">
+     <Button variant="danger" size="lg" className="float-end" id="wd-add-module-btn" onClick={handleShow} >
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        Module
      </Button>
@@ -41,5 +48,7 @@ export default function ModulesControls() {
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        Collapse All
      </Button><br/>
+     <ModuleEditor show={show} handleClose={handleClose} dialogTitle="Add Module"
+       moduleName={moduleName} setModuleName={setModuleName} addModule={addModule} />
    </div>
 );}

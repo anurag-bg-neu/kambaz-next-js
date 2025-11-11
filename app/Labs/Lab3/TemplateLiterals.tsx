@@ -14,5 +14,4 @@ export default function TemplateLiterals() {
       greeting1 = {greeting1} <br />
       greeting2 = {greeting2} <hr />
     </div>
-  );
-}
+  );}

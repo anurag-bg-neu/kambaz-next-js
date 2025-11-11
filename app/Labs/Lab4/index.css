@@ -1,0 +1,29 @@
+/* Array State Variable */
+#wd-array-state-variable-list {
+ border: 1px solid rgb(226, 221, 221);
+ width: fit-content;
+}
+#wd-array-state-variable-list ul {
+ list-style-type: none;
+ padding-left: 0;
+}
+#wd-array-state-variable-list li {
+ border: 1px solid rgb(226, 221, 221);
+ margin: 10px;
+ border-radius: 4px;
+ padding: 5px;
+ padding-left: 20px;
+ align-items: center;
+ display: flex;
+ justify-content: space-between; /* Pushes children to the ends */
+}
+#wd-array-state-variable-list button {
+ margin-left: 5px;
+ margin-right: 10px;
+}
+
+/* AddRedux & TodoForm & TodoItem */
+.w-25-child-inputs {
+ margin-right: 10px;
+ width: fit-content;
+}

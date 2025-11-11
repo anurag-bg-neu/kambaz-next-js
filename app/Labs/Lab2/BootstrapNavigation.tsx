@@ -32,7 +32,7 @@ export default function BootstrapNavigation() {
           <CardText>
             Stacking the most powerful rocket in history. Mars or bust!
           </CardText>
-          <Button className="bg-primary">Boldly Go</Button>
+          <div className="btn btn-primary">Boldly Go</div>
         </CardBody>
       </Card>
     </div>
