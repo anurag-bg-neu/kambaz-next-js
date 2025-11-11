@@ -24,7 +24,22 @@ type User = {
 }
 
 export default function Signup() {
-   const [credentials, setCredentials] = useState<User>({});
+   const [credentials, setCredentials] = useState<User>(
+  {
+    "_id": "",
+    "username": "",
+    "password": "",
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "dob": "",
+    "role": "",
+    "loginId": "",
+    "section": "",
+    "lastActivity": "",
+    "totalActivity": ""
+  }
+);
    const dispatch = useDispatch();
 
    const signup = () => {
