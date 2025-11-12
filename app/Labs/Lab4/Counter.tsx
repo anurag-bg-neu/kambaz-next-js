@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Button } from "react-bootstrap";
+
 export default function Counter() {
   //let count = 7;
   const [count, setCount] = useState(7);
@@ -6,9 +8,9 @@ export default function Counter() {
   return (
     <div>
       <h2>Counter: {count}</h2>
-      <button onClick={() => setCount(count + 1)}
-              id="wd-counter-up-click">Up</button>
-      <button onClick={() => setCount(count - 1)}
-              id="wd-counter-down-click">Down</button>
-<hr/></div>
+      <Button variant="success" onClick={() => setCount(count + 1)}
+              id="wd-counter-up-click" className="me-2">Up</Button>
+      <Button variant="danger" onClick={() => setCount(count - 1)}
+              id="wd-counter-down-click">Down</Button><hr/>
+    </div>
 );}
