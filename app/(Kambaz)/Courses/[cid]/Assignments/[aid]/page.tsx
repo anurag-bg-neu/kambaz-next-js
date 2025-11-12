@@ -151,7 +151,7 @@ export default function AssignmentEditor() {
         <div className="d-flex justify-content-end mt-4">
             <Link href={assignmentsPath} passHref>
                 <Button variant="secondary" className="me-2"
-                onClick={() => {dispatch(setAssignment(defaultAssignment))} }>Cancel</Button>
+                onClick={() => {dispatch(setAssignment(defaultAssignment))} } >Cancel</Button>
             </Link>
             <Link href={assignmentsPath} passHref>
                 <Button variant="primary" onClick={() => {addOrUpdateAssignment()} } >Save</Button>

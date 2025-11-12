@@ -35,11 +35,11 @@ export default function AssignmentControls({ cid }: {cid: string}) {
           Group
         </Button>
 
-        <Button variant="danger" size="lg" className="d-flex align-items-center" onClick={newAssignment}>
+        <Button variant="danger" size="lg" className="d-flex align-items-center"
+          onClick={newAssignment} >
           <FaPlus className="me-2" />
           Assignment
         </Button>
-
       </div>
    </div>
 );}
