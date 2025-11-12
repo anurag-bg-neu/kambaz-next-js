@@ -19,10 +19,9 @@ export default function Modules() {
 
   return (
     <div id="module-below-toggle">
-      <ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={() => {
-          dispatch(addModule({ name: moduleName, course: cid }));
-          setModuleName("")}} />
-          <br /><br /><br />
+      <ModulesControls setModuleName={setModuleName} moduleName={moduleName}
+      addModule={() => {dispatch(addModule({ name: moduleName, course: cid })); setModuleName("")}} />
+      <br /><br /><br />
 
       <ListGroup id="wd-modules" className="rounded-0">
         {modules

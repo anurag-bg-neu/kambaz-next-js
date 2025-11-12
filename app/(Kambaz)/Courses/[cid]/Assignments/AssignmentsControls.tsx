@@ -17,7 +17,7 @@ export default function AssignmentControls({ cid }: {cid: string}) {
     const newAssignment = { ...assignment, _id: newAssignmentId, course: cid };
     dispatch(setAssignment(newAssignment));
 
-    redirect(`/Courses/${cid}/Assignments/${assignment._id}`);
+    redirect(`/Courses/${cid}/Assignments/${newAssignmentId}`);
   }
 
  return (

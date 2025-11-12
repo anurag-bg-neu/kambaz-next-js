@@ -11,11 +11,27 @@ import { deleteAssignment, setAssignment } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 
+type defaultAssignment = {
+  _id: string,
+  title: string,
+  course: string,
+  description: string,
+  points: number,
+  dueDate: string,
+  availableDate: string,
+  untilDate: string
+}
+
 export default function Assignments() {
   const { cid } = useParams();
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
 
   const dispatch = useDispatch();
+
+  const deleteThisAssignment = (assignment: defaultAssignment) => {
+    dispatch(setAssignment(assignment));
+    dispatch(deleteAssignment(assignment._id));
+  }
 
   return (
     <div id="wd-assignments">
@@ -59,9 +75,7 @@ export default function Assignments() {
               </div>
              </Link>
             <div className="ms-auto">
-            <LessonControlButtons
-              assignmentId={assignment._id}
-              deleteAssignment={(assignmentId) => { dispatch(deleteAssignment(assignmentId)) }} />
+            <LessonControlButtons deleteAssignment={() => deleteThisAssignment(assignment)} />
             </div>
           </ListGroupItem>
           ))}
