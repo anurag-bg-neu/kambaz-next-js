@@ -1,6 +1,6 @@
 import { IoAdd, IoEllipsisVertical } from "react-icons/io5";
 
-export default function ModuleControlButtons() {
+export default function AssignmentControlButtons() {
   return (
     <div className="d-flex align-items-center ms-auto me-2" style={{ gap: '8px' }}>
       <div style={{ border: '1px solid black', borderRadius: '20px', padding: '5px 10px' }}>

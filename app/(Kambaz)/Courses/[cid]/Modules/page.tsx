@@ -7,8 +7,7 @@ import ModuleControlButtons from "./ModuleControlButtons";
 import LessonControlButtons from "./LessonControlButtons";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { BsGripVertical } from "react-icons/bs";
-import { addModule, editModule, updateModule, deleteModule }
-  from "./reducer";
+import { addModule, editModule, updateModule, deleteModule } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 
@@ -37,21 +36,18 @@ export default function Modules() {
                 {!module.editing && module.name}
                 { module.editing && (
                   <FormControl className="w-50 d-inline-block"
-                        onChange={(e) =>
-                          dispatch(updateModule({ ...module, name: e.target.value }))}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            dispatch(updateModule({ ...module, editing: false }));
-                          }
-                        }}
-                        defaultValue={module.name}/>
+                      onChange={(e) => dispatch(updateModule({ ...module, name: e.target.value }))}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          dispatch(updateModule({ ...module, editing: false }));
+                        }
+                      }}
+                      defaultValue={module.name}/>
                 )}
                 <ModuleControlButtons
-                moduleId={module._id}
-                deleteModule={(moduleId) => {
-                    dispatch(deleteModule(moduleId));
-                  }}
-                editModule={(moduleId) => dispatch(editModule(moduleId))} />
+                  moduleId={module._id}
+                  deleteModule={(moduleId) => { dispatch(deleteModule(moduleId)) }}
+                  editModule={(moduleId) => dispatch(editModule(moduleId))} />
               </div>
 
               {module.lessons && (

@@ -4,15 +4,39 @@ import { Button } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import * as db from "../../../../Database";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../../store";
+import { addAssignment, setAssignment, updateAssignment } from "../reducer";
 import "./styles.css";
 
+const defaultAssignment = {
+  _id: "",
+  title: "",
+  course: "",
+  description: "" ,
+  points: "",
+  dueDate: "",
+  availableDate: "",
+  untilDate: ""
+}
+
 export default function AssignmentEditor() {
-  const { cid, aid } = useParams();
-  const assignment = db.assignments.find(
-    (a) => a._id === aid && a.course === cid
-  );
+  const { cid } = useParams();
   const assignmentsPath = `/Courses/${cid}/Assignments`;
+
+  const { assignment, assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const dispatch = useDispatch();
+
+  const addOrUpdateAssignment = () => {
+    const foundAssignment = assignments.find((a) => a._id == assignment._id );
+
+    if ( foundAssignment ) {
+        dispatch(updateAssignment(assignment));
+    } else {
+        const newAssignment = { ...assignment, course: cid };
+        dispatch(addAssignment(newAssignment));
+    }
+  }
 
   return (
     <div id="wd-assignments-editor">
@@ -20,7 +44,8 @@ export default function AssignmentEditor() {
         <Row>
             <Form.Group className="mb-2">
                 Assignment Name
-                <Form.Control defaultValue={assignment?.title || ""} placeholder="Assignment Name" />
+                <Form.Control defaultValue={assignment?.title || ""} placeholder="Assignment Name"
+                onChange={ (e) => dispatch(setAssignment({ ...assignment, title: e.target.value })) } />
             </Form.Group>
 
             <Form.Group className="mb-2">
@@ -28,6 +53,7 @@ export default function AssignmentEditor() {
                 as="textarea"
                 rows={8}
                 defaultValue={assignment?.description || ""}
+                onChange={ (e) => dispatch(setAssignment({ ...assignment, description: e.target.value })) }
             />
             </Form.Group>
         </Row>
@@ -36,7 +62,8 @@ export default function AssignmentEditor() {
             <Col className="d-flex justify-content-end">Points</Col>
             <Col className="col-7">
                 <Form.Group className="mb-2">
-                <Form.Control defaultValue={assignment?.points} type="number" placeholder="Points" />
+                <Form.Control defaultValue={assignment?.points} type="number" placeholder="Points"
+                onChange={ (e) => dispatch(setAssignment({ ...assignment, points: e.target.value })) } />
                 </Form.Group>
             </Col>
         </Row>
@@ -99,20 +126,23 @@ export default function AssignmentEditor() {
 
                 <Form.Group className="mb-2">
                     <div><b>Due</b></div>
-                    <Form.Control type="date" placeholder="Due" defaultValue={assignment?.dueDate}/>
+                    <Form.Control type="date" placeholder="Due" defaultValue={assignment?.dueDate}
+                    onChange={ (e) => dispatch(setAssignment({ ...assignment, dueDate: e.target.value })) } />
                 </Form.Group>
 
                 <Row>
                     <Col>
                     <Form.Group className="mb-2">
                         <div><b>Available From</b></div>
-                        <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.availableDate}/>
+                        <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.availableDate}
+                        onChange={ (e) => dispatch(setAssignment({ ...assignment, availableDate: e.target.value })) } />
                     </Form.Group>
                     </Col>
                     <Col>
                     <Form.Group className="mb-2">
                         <div><b>Until</b></div>
-                        <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.untilDate}/>
+                        <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.untilDate}
+                        onChange={ (e) => dispatch(setAssignment({ ...assignment, untilDate: e.target.value })) } />
                     </Form.Group>
                     </Col>
                 </Row>
@@ -120,10 +150,11 @@ export default function AssignmentEditor() {
         </Row>
         <div className="d-flex justify-content-end mt-4">
             <Link href={assignmentsPath} passHref>
-                <Button variant="secondary" className="me-2">Cancel</Button>
+                <Button variant="secondary" className="me-2"
+                onClick={() => {dispatch(setAssignment(defaultAssignment))} }>Cancel</Button>
             </Link>
             <Link href={assignmentsPath} passHref>
-                <Button variant="primary">Save</Button>
+                <Button variant="primary" onClick={() => {addOrUpdateAssignment()} } >Save</Button>
             </Link>
         </div>
       </Form>
