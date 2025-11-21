@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { setCourses } from "../Courses/CoursesReducer";
 import { setEnrollments } from "../Courses/EnrollmentsReducer";
+import { redirect } from "next/dist/client/components/navigation";
 
 type Course = {
   _id: string,
@@ -88,6 +89,7 @@ export default function Dashboard() {
     event.preventDefault();
     await client.unEnrollUserFromCourse(courseId);
     dispatch(setEnrollments(enrollments.filter((enrollment : Enrollment) => enrollment.course !== courseId)));
+    fetchDisplayedCourses();
   };
 
   const fetchDisplayedCourses = useCallback(async () => {
@@ -99,7 +101,7 @@ export default function Dashboard() {
       return;
     }
     dispatch(setCourses(data));
-  }, [showAllCourses, dispatch]);
+  }, [ showAllCourses, dispatch ]);
 
   const fetchMyEnrollments = useCallback(async () => {
     let data = [];
@@ -109,7 +111,7 @@ export default function Dashboard() {
       console.error("Unexpected error: ", error);
     }
     dispatch(setEnrollments(data));
-  }, [dispatch]);
+  }, [ dispatch ]);
 
   const isEnrolled = (courseId: string) => {
     return enrollments.some((e: Enrollment) => e.course === courseId);
@@ -119,11 +121,11 @@ export default function Dashboard() {
     if (!currentUser) {
       dispatch(setCourses([]));
       dispatch(setEnrollments([]));
-      return;
+      redirect("/");
     }
     fetchDisplayedCourses();
     fetchMyEnrollments();
-  }, [fetchDisplayedCourses, fetchMyEnrollments, currentUser, dispatch]);
+  }, [ currentUser, dispatch, fetchDisplayedCourses, fetchMyEnrollments ]);
 
   return (
     <div id="wd-dashboard wd-css-flex">
