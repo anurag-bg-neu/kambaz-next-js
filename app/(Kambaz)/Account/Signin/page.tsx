@@ -48,10 +48,10 @@ export default function Signin() {
       currentUser =  await client.signin(credentials);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
-        alert("Signup failed! Please check your username and password.");
+        alert("Signin failed! Please check your username and password.");
       } else {
-        alert("Signup failed! Unknown error.");
-        console.error("Signup error:", error);
+        alert("Signin failed! Unknown error.");
+        console.error("Signin error:", error);
       }
       return;
     }
