@@ -93,43 +93,37 @@ export default function Dashboard() {
   const fetchDisplayedCourses = useCallback(async () => {
     let data = [];
     try {
-      if (showAllCourses) {
-        data = await client.fetchAllCourses();
-      } else {
-        if (!currentUser) {
-          dispatch(setCourses([]));
-          return;
-        }
-        data = await client.findMyCourses();
-      }
-      dispatch(setCourses(data));
+      data = showAllCourses ? await client.fetchAllCourses() : await client.findMyCourses();
     } catch (error) {
       console.error("Unexpected error: ", error);
+      return;
     }
-  }, [showAllCourses, dispatch, currentUser]);
+    dispatch(setCourses(data));
+  }, [showAllCourses, dispatch]);
 
   const fetchMyEnrollments = useCallback(async () => {
     let data = [];
     try {
-      if (!currentUser) {
-        dispatch(setEnrollments([]));
-        return;
-      }
       data = await client.fetchMyEnrollments();
-      dispatch(setEnrollments(data));
     } catch (error) {
       console.error("Unexpected error: ", error);
     }
-  }, [currentUser, dispatch]);
+    dispatch(setEnrollments(data));
+  }, [dispatch]);
 
   const isEnrolled = (courseId: string) => {
     return enrollments.some((e: Enrollment) => e.course === courseId);
   };
 
   useEffect(() => {
+    if (!currentUser) {
+      dispatch(setCourses([]));
+      dispatch(setEnrollments([]));
+      return;
+    }
     fetchDisplayedCourses();
     fetchMyEnrollments();
-  }, [fetchDisplayedCourses, fetchMyEnrollments]);
+  }, [fetchDisplayedCourses, fetchMyEnrollments, currentUser, dispatch]);
 
   return (
     <div id="wd-dashboard wd-css-flex">
