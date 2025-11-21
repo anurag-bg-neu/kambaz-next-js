@@ -52,7 +52,7 @@ export default function Signup() {
           alert("Signup failed! User already exists.");
           redirect("/Account/Signin");
         } else {
-          alert("Signup failed! Unknown error.");
+          alert("Signup failed! Server side error.");
           console.error("Signup error:", error);
         }
         return;

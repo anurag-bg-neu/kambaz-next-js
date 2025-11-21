@@ -50,7 +50,7 @@ export default function Signin() {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
         alert("Signin failed! Please check your username and password.");
       } else {
-        alert("Signin failed! Unknown error.");
+        alert("Signin failed! Server side error.");
         console.error("Signin error:", error);
       }
       return;
