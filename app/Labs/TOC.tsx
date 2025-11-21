@@ -22,7 +22,10 @@ export default function TOC() {
        <NavLink href="/Labs/Lab4" as={Link} className={`nav-link ${pathname.endsWith("Lab4") ? "active" : ""}`}>Lab 4</NavLink>
      </NavItem>
      <NavItem>
-       <NavLink href="/Account/Signin" as={Link}>Kambaz</NavLink>
+       <NavLink href="/Labs/Lab5" as={Link} className={`nav-link ${pathname.endsWith("Lab5") ? "active" : ""}`}>Lab 5</NavLink>
+     </NavItem>
+     <NavItem>
+       <NavLink href="/Account/Profile" as={Link}>Kambaz</NavLink>
      </NavItem>
      <NavItem>
        <NavLink href="https://github.com/anurag-bg-neu/kambaz-next-js/">My GitHub</NavLink>

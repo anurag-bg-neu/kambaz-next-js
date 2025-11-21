@@ -5,19 +5,17 @@ import { Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 import { redirect } from "next/dist/client/components/navigation";
-import { v4 as uuidv4 } from "uuid";
-import { setAssignment } from "./reducer";
+import { setAssignments } from "./reducer";
+import * as client from "../../client";
 
-export default function AssignmentControls({ cid }: {cid: string}) {
-  const { assignment } = useSelector((state: RootState) => state.assignmentsReducer);
+export default function AssignmentControls({ cid }: {cid: string} ) {
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
   const dispatch = useDispatch();
 
-  const newAssignment = () => {
-    const newAssignmentId = uuidv4();
-    const newAssignment = { ...assignment, _id: newAssignmentId, course: cid };
-    dispatch(setAssignment(newAssignment));
-
-    redirect(`/Courses/${cid}/Assignments/${newAssignmentId}`);
+  const newAssignment = async () => {
+    const newAssignmentData = await client.createAssignmentForCourse(cid, {});
+    dispatch(setAssignments([...assignments, newAssignmentData]));
+    redirect(`/Courses/${cid}/Assignments/${newAssignmentData._id}`);
   }
 
  return (

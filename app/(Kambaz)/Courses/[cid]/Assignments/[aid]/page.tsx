@@ -5,9 +5,11 @@ import { Col, Row } from "react-bootstrap";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import { RootState } from "../../../../store";
-import { addAssignment, setAssignment, updateAssignment } from "../reducer";
+import { setAssignments } from "../reducer";
 import "./styles.css";
+import * as client from "../../../client";
 
 const defaultAssignment = {
   _id: "",
@@ -20,23 +22,56 @@ const defaultAssignment = {
   untilDate: ""
 }
 
+type Assignment = {
+  _id: string,
+  title?: string,
+  course?: string,
+  description?: string,
+  points?: string,
+  dueDate?: string,
+  availableDate?: string,
+  untilDate?: string,
+}
+
 export default function AssignmentEditor() {
   const { cid } = useParams();
+  const { aid } = useParams();
   const assignmentsPath = `/Courses/${cid}/Assignments`;
+  const [ assignment, setAssignment ] = useState(defaultAssignment);
 
-  const { assignment, assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
   const dispatch = useDispatch();
 
-  const addOrUpdateAssignment = () => {
-    const foundAssignment = assignments.find((a) => a._id == assignment._id );
+  const onCreateAssignmentForCourse = async () => {
+    if (!cid) return;
+    const courseId = Array.isArray(cid) ? cid[0] : cid;
+    const newAssignmentData = await client.createAssignmentForCourse(courseId, assignment);
+    dispatch(setAssignments([...assignments, newAssignmentData]));
+  };
 
+  const onUpdateAssignment = async (assignment: Assignment) => {
+    await client.updateAssignment(assignment);
+    const newAssignments = assignments.map((a: Assignment) => a._id === assignment._id ? assignment : a );
+    dispatch(setAssignments(newAssignments));
+  };
+
+  const addOrUpdateAssignment = () => {
+    const foundAssignment = assignment.title === "" ? false : true;
     if ( foundAssignment ) {
-        dispatch(updateAssignment(assignment));
+        onUpdateAssignment(assignment);
     } else {
-        const newAssignment = { ...assignment, course: cid };
-        dispatch(addAssignment(newAssignment));
+        onCreateAssignmentForCourse();
     }
   }
+
+  useEffect(() => {
+    const foundAssignment = assignments.find((a: Assignment) => a._id == aid );
+    if ( foundAssignment ) {
+        setAssignment(foundAssignment);
+    } else {
+        setAssignment(defaultAssignment);
+    }
+  }, [aid, assignments]);
 
   return (
     <div id="wd-assignments-editor">
@@ -45,7 +80,7 @@ export default function AssignmentEditor() {
             <Form.Group className="mb-2">
                 Assignment Name
                 <Form.Control defaultValue={assignment?.title || ""} placeholder="Assignment Name"
-                onChange={ (e) => dispatch(setAssignment({ ...assignment, title: e.target.value })) } />
+                onChange={ (e) => setAssignment({ ...assignment, title: e.target.value }) } />
             </Form.Group>
 
             <Form.Group className="mb-2">
@@ -53,7 +88,7 @@ export default function AssignmentEditor() {
                 as="textarea"
                 rows={8}
                 defaultValue={assignment?.description || ""}
-                onChange={ (e) => dispatch(setAssignment({ ...assignment, description: e.target.value })) }
+                onChange={ (e) => setAssignment({ ...assignment, description: e.target.value }) }
             />
             </Form.Group>
         </Row>
@@ -63,7 +98,7 @@ export default function AssignmentEditor() {
             <Col className="col-7">
                 <Form.Group className="mb-2">
                 <Form.Control defaultValue={assignment?.points} type="number" placeholder="Points"
-                onChange={ (e) => dispatch(setAssignment({ ...assignment, points: e.target.value })) } />
+                onChange={ (e) => setAssignment({ ...assignment, points: e.target.value }) } />
                 </Form.Group>
             </Col>
         </Row>
@@ -127,7 +162,7 @@ export default function AssignmentEditor() {
                 <Form.Group className="mb-2">
                     <div><b>Due</b></div>
                     <Form.Control type="date" placeholder="Due" defaultValue={assignment?.dueDate}
-                    onChange={ (e) => dispatch(setAssignment({ ...assignment, dueDate: e.target.value })) } />
+                    onChange={ (e) => setAssignment({ ...assignment, dueDate: e.target.value }) } />
                 </Form.Group>
 
                 <Row>
@@ -135,14 +170,14 @@ export default function AssignmentEditor() {
                     <Form.Group className="mb-2">
                         <div><b>Available From</b></div>
                         <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.availableDate}
-                        onChange={ (e) => dispatch(setAssignment({ ...assignment, availableDate: e.target.value })) } />
+                        onChange={ (e) => setAssignment({ ...assignment, availableDate: e.target.value }) } />
                     </Form.Group>
                     </Col>
                     <Col>
                     <Form.Group className="mb-2">
                         <div><b>Until</b></div>
                         <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.untilDate}
-                        onChange={ (e) => dispatch(setAssignment({ ...assignment, untilDate: e.target.value })) } />
+                        onChange={ (e) => setAssignment({ ...assignment, untilDate: e.target.value }) } />
                     </Form.Group>
                     </Col>
                 </Row>
@@ -151,7 +186,7 @@ export default function AssignmentEditor() {
         <div className="d-flex justify-content-end mt-4">
             <Link href={assignmentsPath} passHref>
                 <Button variant="secondary" className="me-2"
-                onClick={() => {dispatch(setAssignment(defaultAssignment))} } >Cancel</Button>
+                onClick={() => setAssignment(defaultAssignment) } >Cancel</Button>
             </Link>
             <Link href={assignmentsPath} passHref>
                 <Button variant="primary" onClick={() => {addOrUpdateAssignment()} } >Save</Button>

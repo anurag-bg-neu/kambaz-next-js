@@ -1,10 +1,7 @@
-"use client";
 import { createSlice } from "@reduxjs/toolkit";
-import { courses } from "../Database";
 
 const initialState = {
- courses: courses,
- course: { name: "New Course", description: "New Description", _id: "Dummy Id" },
+ courses: [],
  showMenuKambaz: false,
  showMenuCourse: false,
  FaAlignCourseNav : true,
@@ -15,34 +12,8 @@ const coursesSlice = createSlice({
  initialState,
  reducers: {
 
-   addNewCourse: (state, action) => {
-    const { course } = action.payload;
-
-     const newCourses = [
-        ...state.courses,
-      { ...course }
-    ];
-     state.courses = newCourses;
-     state.course = { name: "", description: "", _id: ""};
-   },
-
-   updateCourse: (state, { payload: course }) => {
-    const newCourses = state.courses.map((c) =>
-       c._id === course._id ? course : c
-     );
-     state.courses = newCourses;
-     state.course = { name: "", description: "", _id: ""};
-   },
-
-   deleteCourse: (state, { payload: courseId }) => {
-    const newCourses = state.courses.filter(
-       (course) => course._id !== courseId
-     );
-     state.courses = newCourses
-   },
-
-   setCourse: (state, { payload: course }) => {
-     state.course = course;
+   setCourses: (state, action) => {
+     state.courses = action.payload;
    },
 
     setShowMenuKambaz: (state, { payload: Status }) => {
@@ -60,6 +31,5 @@ const coursesSlice = createSlice({
 });
 
 export const {
-  addNewCourse, deleteCourse, updateCourse, setCourse,
-  setShowMenuKambaz, setShowMenuCourse, setFaAlignCourseNav } = coursesSlice.actions;
+  setCourses, setShowMenuKambaz, setShowMenuCourse, setFaAlignCourseNav } = coursesSlice.actions;
 export default coursesSlice.reducer;

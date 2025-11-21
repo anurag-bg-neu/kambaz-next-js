@@ -25,7 +25,11 @@ export default function Labs() {
            Lab 4: State in React </Link>
        </li>
        <li>
-         <Link href="/Account/Signin" id="wd-kambaz-link">
+         <Link href="/Labs/Lab5" id="wd-lab5-link">
+           Lab 5: Server </Link>
+       </li>
+       <li>
+         <Link href="/Account/Profile" id="wd-kambaz-link">
            Kambaz </Link>
        </li>
      </ul>

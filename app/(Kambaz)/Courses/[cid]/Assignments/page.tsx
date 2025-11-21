@@ -7,31 +7,43 @@ import LessonControlButtons from './LessonControlButtons';
 import { BsGripVertical } from "react-icons/bs";
 import { LuNotebookPen } from "react-icons/lu";
 import { useParams } from "next/navigation";
-import { deleteAssignment, setAssignment } from "./reducer";
+import { setAssignments } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
+import { useEffect, useCallback } from "react";
+import * as client from "../../client";
 
-type defaultAssignment = {
+type Assignment = {
   _id: string,
-  title: string,
-  course: string,
-  description: string,
-  points: number,
-  dueDate: string,
-  availableDate: string,
-  untilDate: string
+  title?: string,
+  course?: string,
+  description?: string,
+  points?: number,
+  dueDate: Date,
+  availableDate: Date,
+  untilDate: Date,
 }
 
 export default function Assignments() {
   const { cid } = useParams();
-  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
 
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
   const dispatch = useDispatch();
 
-  const deleteThisAssignment = (assignment: defaultAssignment) => {
-    dispatch(setAssignment(assignment));
-    dispatch(deleteAssignment(assignment._id));
+  const onRemoveAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(setAssignments(assignments.filter((a: Assignment) => a._id !== assignmentId)));
   }
+
+  const fetchAssignments = useCallback(async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  }, [cid, dispatch]);
+
+  useEffect(() => {
+    if(!cid) return;
+    fetchAssignments();
+  }, [cid, fetchAssignments]);
 
   return (
     <div id="wd-assignments">
@@ -45,42 +57,43 @@ export default function Assignments() {
           ASSIGNMENTS
           <AssignmentControlButtons />
         </div>
+
         <ListGroup className="wd-lessons rounded-0">
-        {assignments
-          .filter((assignment) => assignment.course === cid)
-          .map((assignment) => (
-          <ListGroupItem
-          key={assignment._id}
-          className="wd-lesson p-3 ps-1 d-flex align-items-center">
-            <BsGripVertical className="me-2 fs-3" />
-            <Link href={`/Courses/${cid}/Assignments/${assignment._id}`}
-              className="wd-assignment-link text-decoration-none text-dark"
-              onClick={() => dispatch(setAssignment(assignment))}>
-              <div className="d-flex align-items-center">
-                <LuNotebookPen className="me-3 fs-4" style={{ color: "#5c8d53ff" }}/>
-                <div>
-                <b>{assignment.title}</b>
-                <div className="wd-assignments-desc"><span style={{color: "red"}}>Multiple Modules</span> | <b>Available</b>{" on "} {new Date(assignment.availableDate).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric"
-                })} |
+          {assignments
+            .filter((assignment: Assignment) => assignment.course === cid)
+            .map((assignment: Assignment) => (
+            <ListGroupItem
+            key={assignment._id}
+            className="wd-assignment p-3 ps-1 d-flex align-items-center">
+              <BsGripVertical className="me-2 fs-3" />
+              <Link href={`/Courses/${cid}/Assignments/${assignment._id}`}
+                className="wd-assignment-link text-decoration-none text-dark" >
+                <div className="d-flex align-items-center">
+                  <LuNotebookPen className="me-3 fs-4" style={{ color: "#5c8d53ff" }}/>
+                  <div>
+                  <b>{assignment.title}</b>
+                  <div className="wd-assignments-desc"><span style={{color: "red"}}>Multiple Modules</span> | <b>Available</b>{" on "}
+                  {new Date(assignment.availableDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                  })} |
+                  </div>
+                  <div className="wd-assignments-desc"><b>Due</b> {new Date(assignment.dueDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                  })} | -/{assignment.points} pts</div>
+                  </div>
                 </div>
-                <div className="wd-assignments-desc"><b>Due</b> {new Date(assignment.dueDate).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric"
-                })} | -/{assignment.points} pts</div>
-                </div>
+              </Link>
+              <div className="ms-auto">
+              <LessonControlButtons deleteAssignment={() => onRemoveAssignment(assignment._id)} />
               </div>
-             </Link>
-            <div className="ms-auto">
-            <LessonControlButtons deleteAssignment={() => deleteThisAssignment(assignment)} />
-            </div>
-          </ListGroupItem>
-          ))}
-        </ListGroup>
-      </ListGroupItem>
+            </ListGroupItem>
+            ))}
+          </ListGroup>
+        </ListGroupItem>
       </ListGroup>
     </div>
 );}

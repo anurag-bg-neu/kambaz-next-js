@@ -17,12 +17,6 @@ import './styles.css';
 export default function CoursesLayout(
   { children, params }: Readonly<{ children: ReactNode; params: Promise<{ cid: string }> }>) {
 
-  // const [cid, setCid] = useState<string>("");
-  // const course = courses.find((course) => course._id === cid);
-  // useEffect(() => {
-  //   params.then(data => setCid(data.cid));
-  // }, [params]);
-
   const { cid } = useParams();
   const { courses, showMenuKambaz, showMenuCourse, FaAlignCourseNav } = useSelector((state: RootState) => state.coursesReducer);
   type Course = { _id: string};

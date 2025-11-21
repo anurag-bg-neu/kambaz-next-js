@@ -1,11 +1,12 @@
 "use client";
+import * as client from "../client";
 import Link from "next/link";
 import { redirect } from "next/dist/client/components/navigation";
 import { setCurrentUser } from "../reducer";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import * as db from "../../Database";
 import { FormControl, Button } from "react-bootstrap"
+import axios from "axios";
 
 type User = {
     _id: string;
@@ -39,18 +40,24 @@ export default function Signin() {
     "totalActivity": ""
   }
 );
-
  const dispatch = useDispatch();
 
- const signin = () => {
-   const user = db.users.find(
-     (u) =>
-       u.username === credentials.username &&
-       u.password === credentials.password
-   );
-   if (!user) return;
-   dispatch(setCurrentUser(user));
-   redirect("/Dashboard");
+ const signin = async () => {
+  let currentUser: null;
+  try {
+      currentUser =  await client.signin(credentials);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        alert("Signup failed! Please check your username and password.");
+      } else {
+        alert("Signup failed! Unknown error.");
+        console.error("Signup error:", error);
+      }
+      return;
+    }
+    if (!currentUser) return;
+    dispatch(setCurrentUser(currentUser));
+    redirect("/Dashboard");
  };
 
   return (

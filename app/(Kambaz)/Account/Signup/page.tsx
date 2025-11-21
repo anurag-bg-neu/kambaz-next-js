@@ -5,8 +5,9 @@ import { setCurrentUser } from "../reducer";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import * as db from "../../Database";
+import * as client from "../client";
 import FormControl from "react-bootstrap/FormControl";
+import axios from "axios";
 
 type User = {
     _id: string;
@@ -24,7 +25,7 @@ type User = {
 }
 
 export default function Signup() {
-   const [credentials, setCredentials] = useState<User>(
+   const [user, setUser] = useState<User>(
   {
     "_id": "",
     "username": "",
@@ -42,35 +43,44 @@ export default function Signup() {
 );
    const dispatch = useDispatch();
 
-   const signup = () => {
-     const user = db.users.find(
-       (u) =>
-         u.username === credentials.username &&
-         u.password === credentials.password
-     );
-     if (!user) return;
-     dispatch(setCurrentUser(user));
+   const signup = async () => {
+    let currentUser: null;
+    try {
+        currentUser = await client.signup(user);
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 400) {
+          alert("Signup failed! User already exists.");
+          redirect("/Account/Signin");
+        } else {
+          alert("Signup failed! Unknown error.");
+          console.error("Signup error:", error);
+        }
+        return;
+      }
+     if (!currentUser) return;
+     dispatch(setCurrentUser(currentUser));
      redirect("/Account/Profile");
    };
+
   return (
     <div id="wd-signup-screen" style={{maxWidth: "400px"}}>
       <h3>Sign up</h3>
       <FormControl
-      defaultValue={credentials.username}
-      onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+      defaultValue={user.username}
+      onChange={(e) => setUser({ ...user, username: e.target.value })}
       placeholder="username"
       className="mb-2"
       />
       <FormControl
-      defaultValue={credentials.password}
-      onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+      defaultValue={user.password}
+      onChange={(e) => setUser({ ...user, password: e.target.value })}
       placeholder="password"
       type="password"
       className="mb-2"
       />
       <FormControl
-      defaultValue={credentials.password}
-      onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+      defaultValue={user.password}
+      onChange={(e) => setUser({ ...user, password: e.target.value })}
       placeholder="verify password"
       type="password"
       className="mb-2"
