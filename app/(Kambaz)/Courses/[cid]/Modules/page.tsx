@@ -33,12 +33,12 @@ export default function Modules() {
 
   const [moduleName, setModuleName] = useState("");
   const { modules } = useSelector((state: RootState) => state.modulesReducer);
+
   const dispatch = useDispatch();
 
   const onCreateModuleForCourse = async () => {
     if (!cid) return;
     const courseId = Array.isArray(cid) ? cid[0] : cid;
-
     const newModule = { name: moduleName, course: courseId };
     const newModuleData = await client.createModuleForCourse(courseId, newModule);
     dispatch(setModules([...modules, newModuleData]));

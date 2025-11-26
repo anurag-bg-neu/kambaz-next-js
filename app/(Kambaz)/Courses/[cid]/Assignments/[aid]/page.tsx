@@ -1,15 +1,15 @@
 "use client";
+import "./styles.css";
+import Link from "next/link";
+import * as client from "../../../client";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "next/navigation";
-import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { RootState } from "../../../../store";
 import { setAssignments } from "../reducer";
-import "./styles.css";
-import * as client from "../../../client";
 
 const defaultAssignment = {
   _id: "",
@@ -40,6 +40,8 @@ export default function AssignmentEditor() {
   const [ assignment, setAssignment ] = useState(defaultAssignment);
 
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+
   const dispatch = useDispatch();
 
   const onCreateAssignmentForCourse = async () => {
@@ -71,7 +73,7 @@ export default function AssignmentEditor() {
     } else {
         setAssignment(defaultAssignment);
     }
-  }, [aid, assignments]);
+  }, [aid, assignments, currentUser]);
 
   return (
     <div id="wd-assignments-editor">

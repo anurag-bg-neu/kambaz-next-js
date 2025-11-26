@@ -1,16 +1,14 @@
 'use client';
-import { ReactNode } from "react";
 import CourseNavigation from "./Navigation";
-
-import { useDispatch, useSelector } from "react-redux";
 import { setShowMenuKambaz, setShowMenuCourse, setFaAlignCourseNav } from "../CoursesReducer";
 import { useParams } from "next/navigation";
 import { RootState } from "../../store";
-
-import KambazNavigationToggle from "./KambazNavigationToggle";
 import { FaAlignJustify } from "react-icons/fa";
 import { IoIosArrowDown } from 'react-icons/io';
 import { IoIosClose } from 'react-icons/io';
+import { ReactNode } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import KambazNavigationToggle from "./KambazNavigationToggle";
 import Breadcrumb from "./Breadcrumb";
 import './styles.css';
 
@@ -21,6 +19,7 @@ export default function CoursesLayout(
   const { courses, showMenuKambaz, showMenuCourse, FaAlignCourseNav } = useSelector((state: RootState) => state.coursesReducer);
   type Course = { _id: string};
   const course = courses.find((course: Course) => course._id === cid); // course is passed to Breadcrumb component.
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
 
   const dispatch = useDispatch();
 
@@ -52,7 +51,7 @@ export default function CoursesLayout(
               {showMenuCourse ? <IoIosClose className="fs-1" /> : <IoIosArrowDown className="fs-1" />}
             </div>
             <div className="btn btn-secondary btn-lg d-none d-md-block studentView">
-              Student View
+              {currentUser?.role} View
             </div>
         </div>
       </h2>

@@ -7,9 +7,13 @@ import { RootState } from "../../../store";
 import { redirect } from "next/dist/client/components/navigation";
 import { setAssignments } from "./reducer";
 import * as client from "../../client";
+import { useEffect, useState } from "react";
 
 export default function AssignmentControls({ cid }: {cid: string} ) {
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const [studentView, setstudentView] =  useState(true);
+
   const dispatch = useDispatch();
 
   const newAssignment = async () => {
@@ -17,6 +21,14 @@ export default function AssignmentControls({ cid }: {cid: string} ) {
     dispatch(setAssignments([...assignments, newAssignmentData]));
     redirect(`/Courses/${cid}/Assignments/${newAssignmentData._id}`);
   }
+
+  useEffect(() => {
+    if ( currentUser && currentUser.role === "STUDENT" ) {
+        setstudentView(true);
+    } else {
+        setstudentView(false);
+    }
+  }, [currentUser]);
 
  return (
    <div id="wd-modules-controls" className="d-flex justify-content-between align-items-center flex-wrap">
@@ -27,17 +39,20 @@ export default function AssignmentControls({ cid }: {cid: string} ) {
         className="me-2"
         style={{ maxWidth: "700px", minHeight: "47px" }}
       />
-      <div className="d-flex align-items-center">
-        <Button variant="secondary" size="lg" className="me-2 d-flex align-items-center">
-          <IoAdd size={24} className="me-1" />
-          Group
-        </Button>
 
-        <Button variant="danger" size="lg" className="d-flex align-items-center"
-          onClick={newAssignment} >
-          <FaPlus className="me-2" />
-          Assignment
-        </Button>
-      </div>
+      {!studentView &&
+        <div className="d-flex align-items-center">
+          <Button variant="secondary" size="lg" className="me-2 d-flex align-items-center">
+            <IoAdd size={24} className="me-1" />
+            Group
+          </Button>
+
+          <Button variant="danger" size="lg" className="d-flex align-items-center"
+            onClick={newAssignment} >
+            <FaPlus className="me-2" />
+            Assignment
+          </Button>
+        </div>
+      }
    </div>
 );}

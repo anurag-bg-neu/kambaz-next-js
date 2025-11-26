@@ -1,8 +1,10 @@
-import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
 import GreenCheckmark from "./GreenCheckmark";
 import LessonDeleteConfirm from "./LessonDeleteConfirm";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { RootState } from "../../../store";
 
 export default function LessonControlButtons(
   { deleteAssignment }:
@@ -11,10 +13,22 @@ export default function LessonControlButtons(
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const [studentView, setstudentView] =  useState(true);
+
+  useEffect(() => {
+    if ( currentUser && currentUser.role === "STUDENT" ) {
+        setstudentView(true);
+    } else {
+        setstudentView(false);
+    }
+  }, [currentUser]);
 
   return (
     <div className="float-end me-2">
-      <FaTrash className="text-danger me-2 mb-1" onClick={handleShow}/>
+      {!studentView &&
+        <FaTrash className="text-danger me-2 mb-1" onClick={handleShow}/>
+      }
       <GreenCheckmark/>
       <IoEllipsisVertical className="fs-4" />
       <LessonDeleteConfirm show={show} handleClose={handleClose}

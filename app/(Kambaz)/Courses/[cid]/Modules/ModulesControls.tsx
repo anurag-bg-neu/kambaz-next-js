@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from './GreenCheckmark';
 import { MdDoNotDisturbAlt } from "react-icons/md";
 import ModuleEditor from "./ModuleEditor";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 export default function ModulesControls(
   { moduleName, setModuleName, addModule }:
@@ -11,9 +13,21 @@ export default function ModulesControls(
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+    const [studentView, setstudentView] =  useState(true);
+
+    useEffect(() => {
+      if ( currentUser && currentUser.role === "STUDENT" ) {
+          setstudentView(true);
+      } else {
+          setstudentView(false);
+      }
+    }, [currentUser]);
 
  return (
    <div id="wd-modules-controls" className="text-nowrap">
+    {!studentView &&
+    <>
      <Button variant="danger" size="lg" className="float-end" id="wd-add-module-btn" onClick={handleShow} >
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        Module
@@ -40,6 +54,8 @@ export default function ModulesControls(
          </DropdownItem>
        </DropdownMenu>
      </Dropdown>
+     </>
+    }
      <Button variant="secondary" size="lg" className="float-end me-1" id="wd-view-progress">
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        View Progress

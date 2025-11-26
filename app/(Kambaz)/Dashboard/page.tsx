@@ -44,6 +44,7 @@ export default function Dashboard() {
   const { enrollments } = useSelector((state: RootState) => state.enrollmentsReducer);
   const [ course, setCourse ] = useState(defaultCourse);
   const [ showAllCourses, setShowAllCourses ] = useState(false);
+  const [studentView, setstudentView] =  useState(true);
 
   const dispatch = useDispatch();
 
@@ -125,6 +126,12 @@ export default function Dashboard() {
     }
     fetchDisplayedCourses();
     fetchMyEnrollments();
+    if ( currentUser && currentUser.role === "STUDENT" ) {
+        setstudentView(true);
+        console.log("Student view enabled");
+    } else {
+        setstudentView(false);
+    }
   }, [ currentUser, dispatch, fetchDisplayedCourses, fetchMyEnrollments ]);
 
   return (
@@ -138,23 +145,27 @@ export default function Dashboard() {
       </Button>
       </div>
       <hr />
-      <h5>New Course
-          <Button className="btn btn-primary float-end"
-                  id="wd-add-new-course-click"
-                  onClick={onAddNewCourse} > Add
-          </Button>
-          <Button className="btn btn-warning float-end me-2"
-                id="wd-update-course-click"
-                onClick={onUpdateCourse} > Update
-          </Button>
-      </h5><hr />
-        <FormControl className="mb-2"
-          value={course.name || ''}
-          onChange={ (e) => setCourse({ ...course, name: e.target.value }) } />
-        <FormControl as="textarea" rows={3}
-          value={course.description || ''}
-          onChange={ (e) => setCourse({ ...course, description: e.target.value}) } />
-      <hr />
+      {!studentView &&
+        <>
+        <h5>New Course
+            <Button className="btn btn-primary float-end"
+                    id="wd-add-new-course-click"
+                    onClick={onAddNewCourse} > Add
+            </Button>
+            <Button className="btn btn-warning float-end me-2"
+                  id="wd-update-course-click"
+                  onClick={onUpdateCourse} > Update
+            </Button>
+        </h5><hr />
+          <FormControl className="mb-2"
+            value={course.name || ''}
+            onChange={ (e) => setCourse({ ...course, name: e.target.value }) } />
+          <FormControl as="textarea" rows={3}
+            value={course.description || ''}
+            onChange={ (e) => setCourse({ ...course, description: e.target.value}) } />
+        <hr />
+        </>
+      }
       <h2 id="wd-dashboard-published">
         {showAllCourses ? "Published " : "My "} Courses
         ({courses.length})
@@ -181,14 +192,18 @@ export default function Dashboard() {
                     {!isEnrolled(course._id) && <Button variant="primary"
                       onClick={(event) => {onEnrollCourse(event, course._id)}}> Enroll
                     </Button>}
-                    <div id="wd-delete-course-click"
-                      onClick={(event) => {onDeleteCourse(event, course._id)}}
-                    className="btn btn-danger float-end me-2" >Delete
-                    </div>
-                    <div id="wd-edit-course-click"
-                      onClick={(event) => {setThisCourse(event, course)}}
-                      className="btn btn-warning me-2 float-end" >Edit
-                    </div>
+                    {!studentView &&
+                      <>
+                        <div id="wd-delete-course-click"
+                          onClick={(event) => {onDeleteCourse(event, course._id)}}
+                        className="btn btn-danger float-end me-2" >Delete
+                        </div>
+                        <div id="wd-edit-course-click"
+                          onClick={(event) => {setThisCourse(event, course)}}
+                          className="btn btn-warning me-2 float-end" >Edit
+                        </div>
+                      </>
+                    }
                   </CardBody>
                 </Link>
               </Card>

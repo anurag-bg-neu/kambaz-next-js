@@ -10,7 +10,7 @@ import { useParams } from "next/navigation";
 import { setAssignments } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
-import { useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import * as client from "../../client";
 
 type Assignment = {
@@ -26,8 +26,10 @@ type Assignment = {
 
 export default function Assignments() {
   const { cid } = useParams();
-
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const [studentView, setstudentView] =  useState(true);
+
   const dispatch = useDispatch();
 
   const onRemoveAssignment = async (assignmentId: string) => {
@@ -43,7 +45,13 @@ export default function Assignments() {
   useEffect(() => {
     if(!cid) return;
     fetchAssignments();
-  }, [cid, fetchAssignments]);
+    if ( currentUser && currentUser.role === "STUDENT" ) {
+        setstudentView(true);
+        console.log("Student view enabled");
+    } else {
+        setstudentView(false);
+    }
+  }, [cid, fetchAssignments, currentUser]);
 
   return (
     <div id="wd-assignments">
@@ -66,8 +74,13 @@ export default function Assignments() {
             key={assignment._id}
             className="wd-assignment p-3 ps-1 d-flex align-items-center">
               <BsGripVertical className="me-2 fs-3" />
-              <Link href={`/Courses/${cid}/Assignments/${assignment._id}`}
-                className="wd-assignment-link text-decoration-none text-dark" >
+              <Link href={!studentView ? `/Courses/${cid}/Assignments/${assignment._id}` : "#"}
+                  style={{
+                    pointerEvents: studentView ? 'none' : 'auto',
+                    cursor: studentView ? 'default' : 'pointer'
+                  }}
+                  onClick={(e) => studentView && e.preventDefault()}
+                  className="wd-assignment-link text-decoration-none text-dark" >
                 <div className="d-flex align-items-center">
                   <LuNotebookPen className="me-3 fs-4" style={{ color: "#5c8d53ff" }}/>
                   <div>
