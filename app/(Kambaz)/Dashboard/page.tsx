@@ -44,7 +44,7 @@ export default function Dashboard() {
   const { enrollments } = useSelector((state: RootState) => state.enrollmentsReducer);
   const [ course, setCourse ] = useState(defaultCourse);
   const [ showAllCourses, setShowAllCourses ] = useState(false);
-  const [studentView, setstudentView] =  useState(true);
+  const [ studentView, setstudentView ] =  useState(true);
 
   const dispatch = useDispatch();
 
@@ -88,12 +88,9 @@ export default function Dashboard() {
 
   const onUnEnrollCourse = async (event: React.MouseEvent<HTMLButtonElement>, courseId: string) => {
     event.preventDefault();
-    const updatedEnrollments = await client.unEnrollUserFromCourse(courseId);
-    dispatch(setEnrollments(updatedEnrollments));
-    // If showing all courses, keep showing them; otherwise refresh enrolled courses
-    if (!showAllCourses) {
-      fetchDisplayedCourses();
-    }
+    await client.unEnrollUserFromCourse(courseId);
+    dispatch(setEnrollments(enrollments.filter((enrollment: Enrollment) => enrollment.course !== courseId)));
+    fetchDisplayedCourses();
   };
 
   const fetchDisplayedCourses = useCallback(async () => {
