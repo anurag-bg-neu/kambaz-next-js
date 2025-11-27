@@ -126,6 +126,7 @@ export default function Dashboard() {
     }
     fetchDisplayedCourses();
     fetchMyEnrollments();
+    // Determine if the user is a student/TA or faculty/admin
     if ( currentUser.role === "FACULTY" || currentUser.role === "ADMIN") {
         setstudentView(false);
         console.log("Student view enabled");
