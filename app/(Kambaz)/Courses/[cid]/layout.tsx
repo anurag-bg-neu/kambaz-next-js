@@ -51,7 +51,7 @@ export default function CoursesLayout(
               {showMenuCourse ? <IoIosClose className="fs-1" /> : <IoIosArrowDown className="fs-1" />}
             </div>
             <div className="btn btn-secondary btn-lg d-none d-md-block studentView">
-              {currentUser?.role} View {/* Student, Instructor, Admin etc. */}
+              {currentUser?.role} viewing {/* Student, Instructor, Admin etc. */}
             </div>
         </div>
       </h2>

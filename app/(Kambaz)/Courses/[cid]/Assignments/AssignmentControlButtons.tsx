@@ -8,11 +8,13 @@ export default function AssignmentControlButtons() {
   const [studentView, setstudentView] =  useState(true);
 
   useEffect(() => {
-    if ( currentUser && currentUser.role === "STUDENT" ) {
-        setstudentView(true);
-        console.log("Student view enabled");
-    } else {
+    if ( !currentUser ) {
+      return;
+    }
+    if ( currentUser.role === "FACULTY" || currentUser.role === "ADMIN") {
         setstudentView(false);
+    } else {
+        setstudentView(true);
     }
   }, [currentUser]);
 

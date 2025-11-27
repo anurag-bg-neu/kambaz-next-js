@@ -17,10 +17,13 @@ export default function ModulesControls(
     const [studentView, setstudentView] =  useState(true);
 
     useEffect(() => {
-      if ( currentUser && currentUser.role === "STUDENT" ) {
-          setstudentView(true);
-      } else {
+      if ( !currentUser ) {
+        return;
+      }
+      if ( currentUser.role === "FACULTY" || currentUser.role === "ADMIN") {
           setstudentView(false);
+      } else {
+          setstudentView(true);
       }
     }, [currentUser]);
 

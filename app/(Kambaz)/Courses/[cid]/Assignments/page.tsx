@@ -45,11 +45,13 @@ export default function Assignments() {
   useEffect(() => {
     if(!cid) return;
     fetchAssignments();
-    if ( currentUser && currentUser.role === "STUDENT" ) {
-        setstudentView(true);
-        console.log("Student view enabled");
-    } else {
+     if ( !currentUser ) {
+      return;
+    }
+    if ( currentUser.role === "FACULTY" || currentUser.role === "ADMIN") {
         setstudentView(false);
+    } else {
+        setstudentView(true);
     }
   }, [cid, fetchAssignments, currentUser]);
 

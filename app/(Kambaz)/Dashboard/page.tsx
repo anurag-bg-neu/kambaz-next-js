@@ -126,11 +126,11 @@ export default function Dashboard() {
     }
     fetchDisplayedCourses();
     fetchMyEnrollments();
-    if ( currentUser && currentUser.role === "STUDENT" ) {
-        setstudentView(true);
+    if ( currentUser.role === "FACULTY" || currentUser.role === "ADMIN") {
+        setstudentView(false);
         console.log("Student view enabled");
     } else {
-        setstudentView(false);
+        setstudentView(true);
     }
   }, [ currentUser, dispatch, fetchDisplayedCourses, fetchMyEnrollments ]);
 
@@ -186,11 +186,14 @@ export default function Dashboard() {
                       {course.name} </CardTitle>
                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                       {course.description} </CardText>
-                    {isEnrolled(course._id) && <Button variant="primary"
+                    {studentView && isEnrolled(course._id) && <Button variant="danger"
                       onClick={(event) => {onUnEnrollCourse(event, course._id)}}> Unenroll
                     </Button>}
-                    {!isEnrolled(course._id) && <Button variant="primary"
+                    {studentView && !isEnrolled(course._id) && <Button variant="success"
                       onClick={(event) => {onEnrollCourse(event, course._id)}}> Enroll
+                    </Button>}
+                    {!studentView &&
+                    <Button variant="primary"> Go
                     </Button>}
                     {!studentView &&
                       <>
