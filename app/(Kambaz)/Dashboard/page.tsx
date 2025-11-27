@@ -88,9 +88,12 @@ export default function Dashboard() {
 
   const onUnEnrollCourse = async (event: React.MouseEvent<HTMLButtonElement>, courseId: string) => {
     event.preventDefault();
-    await client.unEnrollUserFromCourse(courseId);
-    dispatch(setEnrollments(enrollments.filter((enrollment : Enrollment) => enrollment.course !== courseId)));
-    fetchDisplayedCourses();
+    const updatedEnrollments = await client.unEnrollUserFromCourse(courseId);
+    dispatch(setEnrollments(updatedEnrollments));
+    // If showing all courses, keep showing them; otherwise refresh enrolled courses
+    if (!showAllCourses) {
+      fetchDisplayedCourses();
+    }
   };
 
   const fetchDisplayedCourses = useCallback(async () => {
@@ -187,10 +190,12 @@ export default function Dashboard() {
                       {course.name} </CardTitle>
                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                       {course.description} </CardText>
-                    {studentView && isEnrolled(course._id) && <Button variant="danger"
+                    {studentView && isEnrolled(course._id) &&
+                    <Button variant="danger"
                       onClick={(event) => {onUnEnrollCourse(event, course._id)}}> Unenroll
                     </Button>}
-                    {studentView && !isEnrolled(course._id) && <Button variant="success"
+                    {studentView && !isEnrolled(course._id) &&
+                    <Button variant="success"
                       onClick={(event) => {onEnrollCourse(event, course._id)}}> Enroll
                     </Button>}
                     {!studentView &&

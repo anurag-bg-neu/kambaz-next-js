@@ -5,7 +5,6 @@ const USERS_API = `${HTTP_SERVER}/api/users`;
 const COURSES_API = `${HTTP_SERVER}/api/courses`;
 const MODULES_API = `${HTTP_SERVER}/api/modules`;
 const ASSIGNMENTS_API = `${HTTP_SERVER}/api/assignments`;
-const ENROLLMENTS_API = `${HTTP_SERVER}/api/enrollments`;
 
 type Course = {
   _id?: string,
@@ -121,6 +120,6 @@ export const deleteAssignment = async (assignmentId: string) => {
 }
 
 export const unEnrollUserFromCourse = async (courseId: string) => {
-  const { data } = await axios.delete(`${ENROLLMENTS_API}/${courseId}`);
+  const { data } = await axiosWithCredentials.delete(`${USERS_API}/current/enrollments/${courseId}`);
   return data;
 }
