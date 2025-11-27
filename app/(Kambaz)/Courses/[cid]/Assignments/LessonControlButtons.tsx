@@ -17,10 +17,7 @@ export default function LessonControlButtons(
   const [studentView, setstudentView] =  useState(true);
 
   useEffect(() => {
-    if ( !currentUser ) {
-      return;
-    }
-    if ( currentUser.role === "FACULTY" || currentUser.role === "ADMIN") {
+    if ( currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN") {
         setstudentView(false);
     } else {
         setstudentView(true);
