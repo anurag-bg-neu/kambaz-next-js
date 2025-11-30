@@ -15,6 +15,7 @@ export default function AccountNavigation() {
   const loadPage = (link : string) => {
     redirect(`/Account/${link}`);
   }
+
  return (
   <Nav>
    <div id="wd-account-navigation" className="list-group wd fs-5 rounded-0">
@@ -22,10 +23,16 @@ export default function AccountNavigation() {
           <NavItem key={link}>
             <NavLink
               onClick={() => loadPage(link)}
-              className={`list-group-item ${pathname === `/Account/${link}` ? "active" : ""} border-0`}
-              >
-                {link}
-            </NavLink>
+              className={`list-group-item ${pathname === `/Account/${link}` ? "active" : ""} border-0`}>
+                  {link}
+              </NavLink>
+            {currentUser && (currentUser.role === "ADMIN" || currentUser.role === "FACULTY") && (
+              <NavLink
+                onClick={() => loadPage("Users")}
+                className={`list-group-item ${pathname === `/Account/Users` ? "active" : ""} border-0`}>
+                    Users
+              </NavLink>
+            )}
           </NavItem>
       ))}
    </div>

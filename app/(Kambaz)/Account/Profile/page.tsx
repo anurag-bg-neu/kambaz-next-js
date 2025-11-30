@@ -46,6 +46,11 @@ export default function Profile() {
    redirect("/Account/Signin");
  };
 
+ const toDateOnly = (iso : string | undefined) => {
+    if (!iso) return "";
+    return iso.split("T")[0];
+  };
+
  useEffect(() => {
    fetchProfile();
  }, [fetchProfile]);
@@ -68,7 +73,7 @@ export default function Profile() {
            value={profile.lastName || "" }
            onChange={(e) => setProfile({ ...profile, lastName: e.target.value }) } />
          <FormControl id="wd-dob" className="mb-2" type="date"
-           value={profile.dob || "" }
+           value={toDateOnly(profile.dob) || "" }
            onChange={(e) => setProfile({ ...profile, dob: e.target.value })} />
          <FormControl id="wd-email" className="mb-2"
            value={profile.email || "" }

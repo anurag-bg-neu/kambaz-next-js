@@ -122,11 +122,11 @@ export default function Dashboard() {
     if (!currentUser) {
       dispatch(setCourses([]));
       dispatch(setEnrollments([]));
-      redirect("/");
+      redirect("/Account/Signin");
     }
     fetchDisplayedCourses();
     fetchMyEnrollments();
-    // Determine if the user is a student/TA or faculty/admin
+    // Determine the role of currentUser
     if ( currentUser.role === "FACULTY" || currentUser.role === "ADMIN") {
         setstudentView(false);
     } else {
