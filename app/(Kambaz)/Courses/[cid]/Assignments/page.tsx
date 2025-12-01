@@ -43,7 +43,7 @@ export default function Assignments() {
   }, [cid, dispatch]);
 
   useEffect(() => {
-    if(!cid) return;
+    if(!cid || !currentUser) return;
     fetchAssignments();
     if ( currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN") {
         setstudentView(false);
@@ -67,7 +67,6 @@ export default function Assignments() {
 
         <ListGroup className="wd-lessons rounded-0">
           {assignments
-            .filter((assignment: Assignment) => assignment.course === cid)
             .map((assignment: Assignment) => (
             <ListGroupItem
             key={assignment._id}
@@ -88,13 +87,15 @@ export default function Assignments() {
                   {new Date(assignment.availableDate).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
-                    day: "numeric"
+                    day: "numeric",
+                    timeZone: "UTC"
                   })} |
                   </div>
                   <div className="wd-assignments-desc"><b>Due</b> {new Date(assignment.dueDate).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
-                    day: "numeric"
+                    day: "numeric",
+                    timeZone: "UTC"
                   })} | -/{assignment.points} pts</div>
                   </div>
                 </div>

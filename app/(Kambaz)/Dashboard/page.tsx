@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { setCourses } from "../Courses/CoursesReducer";
 import { setEnrollments } from "../Courses/EnrollmentsReducer";
-import { redirect } from "next/dist/client/components/navigation";
 
 type Course = {
   _id: string,
@@ -82,13 +81,18 @@ export default function Dashboard() {
       alert("Please log in to enroll in a course.");
       return;
     }
-    const newEnrollment = await client.enrollUserInCourse(courseId);
+    const newEnrollment = await client.enrollIntoCourse(currentUser._id, courseId);
     dispatch(setEnrollments([... enrollments, newEnrollment]));
+    fetchDisplayedCourses();
   };
 
   const onUnEnrollCourse = async (event: React.MouseEvent<HTMLButtonElement>, courseId: string) => {
     event.preventDefault();
-    await client.unEnrollUserFromCourse(courseId);
+    if(!currentUser){
+      alert("Please log in to unenroll from a course.");
+      return;
+    }
+    await client.unenrollFromCourse(currentUser._id, courseId);
     dispatch(setEnrollments(enrollments.filter((enrollment: Enrollment) => enrollment.course !== courseId)));
     fetchDisplayedCourses();
   };
@@ -122,7 +126,7 @@ export default function Dashboard() {
     if (!currentUser) {
       dispatch(setCourses([]));
       dispatch(setEnrollments([]));
-      redirect("/Account/Signin");
+      return;
     }
     fetchDisplayedCourses();
     fetchMyEnrollments();

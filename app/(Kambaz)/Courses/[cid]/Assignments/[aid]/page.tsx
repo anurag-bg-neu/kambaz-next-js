@@ -66,6 +66,11 @@ export default function AssignmentEditor() {
     }
   }
 
+  const toDateOnly = (iso : string | undefined) => {
+    if (!iso) return "";
+    return iso.split("T")[0];
+  };
+
   useEffect(() => {
     const foundAssignment = assignments.find((a: Assignment) => a._id == aid );
     if ( foundAssignment ) {
@@ -163,7 +168,7 @@ export default function AssignmentEditor() {
 
                 <Form.Group className="mb-2">
                     <div><b>Due</b></div>
-                    <Form.Control type="date" placeholder="Due" defaultValue={assignment?.dueDate}
+                    <Form.Control type="date" placeholder="Due" value={toDateOnly(assignment?.dueDate)}
                     onChange={ (e) => setAssignment({ ...assignment, dueDate: e.target.value }) } />
                 </Form.Group>
 
@@ -171,14 +176,14 @@ export default function AssignmentEditor() {
                     <Col>
                     <Form.Group className="mb-2">
                         <div><b>Available From</b></div>
-                        <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.availableDate}
+                        <Form.Control type="date" placeholder="MM-DD-YYYY" value={toDateOnly(assignment?.availableDate)}
                         onChange={ (e) => setAssignment({ ...assignment, availableDate: e.target.value }) } />
                     </Form.Group>
                     </Col>
                     <Col>
                     <Form.Group className="mb-2">
                         <div><b>Until</b></div>
-                        <Form.Control type="date" placeholder="MM-DD-YYYY" defaultValue={assignment?.untilDate}
+                        <Form.Control type="date" placeholder="MM-DD-YYYY" value={toDateOnly(assignment?.untilDate)}
                         onChange={ (e) => setAssignment({ ...assignment, untilDate: e.target.value }) } />
                     </Form.Group>
                     </Col>

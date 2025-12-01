@@ -30,27 +30,25 @@ type Module = {
 
 export default function Modules() {
   const { cid } = useParams();
-
-  const [moduleName, setModuleName] = useState("");
+  const [ moduleName, setModuleName ] = useState("");
   const { modules } = useSelector((state: RootState) => state.modulesReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
 
   const dispatch = useDispatch();
 
   const onCreateModuleForCourse = async () => {
-    if (!cid) return;
-    const courseId = Array.isArray(cid) ? cid[0] : cid;
-    const newModule = { name: moduleName, course: courseId };
-    const newModuleData = await client.createModuleForCourse(courseId, newModule);
+    const newModule = { name: moduleName, course: cid as string };
+    const newModuleData = await client.createModuleForCourse(cid as string, newModule);
     dispatch(setModules([...modules, newModuleData]));
   };
 
   const onRemoveModule = async (moduleId: string) => {
-    await client.deleteModule(moduleId);
+    await client.deleteModule(cid as string, moduleId);
     dispatch(setModules(modules.filter((m: Module) => m._id !== moduleId)));
   };
 
   const onUpdateModule = async (module: Module) => {
-    await client.updateModule(module);
+    await client.updateModule(cid as string, module);
     const newModules = modules.map((m: Module) => m._id === module._id ? module : m );
     dispatch(setModules(newModules));
   };
@@ -61,9 +59,9 @@ export default function Modules() {
   }, [cid, dispatch]);
 
   useEffect(() => {
-    if(!cid) return;
+    if (!cid || !currentUser) return;
     fetchModules();
-  }, [cid, fetchModules]);
+  }, [cid, currentUser, fetchModules]);
 
   return (
     <div id="module-below-toggle">
@@ -72,7 +70,6 @@ export default function Modules() {
 
       <ListGroup className="wd-modules rounded-0">
         {modules
-          .filter((module: Module) => module.course === cid)
           .map((module: Module) => (
             <ListGroupItem
               key={module._id}

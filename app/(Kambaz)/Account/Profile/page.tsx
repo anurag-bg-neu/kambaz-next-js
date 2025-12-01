@@ -23,7 +23,7 @@ type User = {
 }
 
 export default function Profile() {
- const [profile, setProfile] = useState<User>({});
+ const [ profile, setProfile ] = useState<User>({});
  const dispatch = useDispatch();
  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
 
@@ -35,11 +35,6 @@ export default function Profile() {
     redirect("/");
   };
 
- const fetchProfile = useCallback(() => {
-   if (!currentUser) return redirect("/Account/Signin");
-   setProfile(currentUser);
- }, [currentUser]);
-
  const signout = async () => {
    await client.signout();
    dispatch(setCurrentUser(null));
@@ -50,6 +45,13 @@ export default function Profile() {
     if (!iso) return "";
     return iso.split("T")[0];
   };
+
+  const fetchProfile = useCallback(() => {
+   if (!currentUser) {
+    return;
+   }
+   setProfile(currentUser);
+ }, [currentUser]);
 
  useEffect(() => {
    fetchProfile();
