@@ -28,6 +28,7 @@ export default function Users() {
  const [ users, setUsers ] = useState<User[]>([]);
  const [ role, setRole ] = useState("");
  const [ name, setName ] = useState("");
+
  const filterUsersByName = async (name: string) => {
     setName(name);
     if (name) {
@@ -37,6 +38,7 @@ export default function Users() {
       fetchUsers();
     }
   };
+
  const filterUsersByRole = async (role: string) => {
     setRole(role);
     if (role) {
@@ -46,19 +48,6 @@ export default function Users() {
       fetchUsers();
     }
   };
-
- const fetchUsers = async () => {
-   const users = await client.findAllUsers();
-   setUsers(users);
-   setName("");
-   setRole("");
- };
- useEffect(() => {
-   if (!currentUser) {
-     redirect("/Account/Signin");
-   }
-   fetchUsers();
- }, [currentUser]);
 
  const createUser = async () => {
     const user = await client.createUser({
@@ -72,6 +61,20 @@ export default function Users() {
     });
     setUsers([...users, user]);
   };
+
+ const fetchUsers = async () => {
+   const users = await client.findAllUsers();
+   setUsers(users);
+   setName("");
+   setRole("");
+ };
+
+ useEffect(() => {
+   if (!currentUser) {
+     redirect("/Account/Signin");
+   }
+   fetchUsers();
+ }, [currentUser]);
 
  return (
    <div>
@@ -88,6 +91,6 @@ export default function Users() {
         <option value="TA">Assistants</option> <option value="FACULTY">Faculty</option>
         <option value="ADMIN">Administrators</option>
      </select>
-     <PeopleTable users={users} fetchUsers={fetchUsers} />
+     <PeopleTable allusers={users} fetchUsers={fetchUsers} />
    </div>
 );}

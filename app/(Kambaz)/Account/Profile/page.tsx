@@ -48,6 +48,7 @@ export default function Profile() {
 
   const fetchProfile = useCallback(() => {
    if (!currentUser) {
+    redirect("/Account/Signin");
     return;
    }
    setProfile(currentUser);
