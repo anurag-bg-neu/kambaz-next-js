@@ -53,8 +53,10 @@ export default function PeopleTable(
        <PeopleDetails
          uid={showUserId}
          onClose={() => {
-           setShowDetails(false);
-           fetchUsers();
+          if (!cid) {
+            setShowDetails(false);
+            fetchUsers();
+           }
          }}/>
      )}
    <Table striped>
@@ -68,8 +70,10 @@ export default function PeopleTable(
       <td className="wd-full-name text-nowrap">
         <span className="text-decoration-none"
                  onClick={() => {
-                   setShowDetails(true);
-                   setShowUserId(user._id);
+                  if (!cid) {
+                    setShowDetails(true);
+                    setShowUserId(user._id);
+                  }
                  }} >
           <FaUserCircle className="me-2 fs-1 text-secondary" />
           <span className="wd-first-name">{user?.firstName}</span>{" "}
