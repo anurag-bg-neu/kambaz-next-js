@@ -59,9 +59,11 @@ export default function Assignments() {
       <ListGroup className="rounded-0" id="wd-assignments" style={{minWidth: "672px"}}>
       <ListGroupItem className="wd-assignment p-0 mb-5 fs-5 border-gray">
         <div className="wd-title p-3 ps-2 bg-secondary d-flex">
-          <BsGripVertical className="me-2 fs-3" />
+          {!studentView &&
+            <BsGripVertical className="me-2 fs-3" />
+          }
           <span className="dropdown-toggle me-2"></span>
-          ASSIGNMENTS
+            ASSIGNMENTS
           <AssignmentControlButtons />
         </div>
 
@@ -69,9 +71,11 @@ export default function Assignments() {
           {assignments
             .map((assignment: Assignment) => (
             <ListGroupItem
-            key={assignment._id}
-            className="wd-assignment p-3 ps-1 d-flex align-items-center">
-              <BsGripVertical className="me-2 fs-3" />
+              key={assignment._id}
+              className="wd-assignment p-3 ps-1 d-flex align-items-center">
+              {!studentView &&
+                <BsGripVertical className="me-2 fs-3" />
+              }
               <Link href={!studentView ? `/Courses/${cid}/Assignments/${assignment._id}` : "#"}
                   style={{
                     pointerEvents: studentView ? 'none' : 'auto',
@@ -101,7 +105,9 @@ export default function Assignments() {
                 </div>
               </Link>
               <div className="ms-auto">
-              <LessonControlButtons deleteAssignment={() => onRemoveAssignment(assignment._id)} />
+                {!studentView &&
+                  <LessonControlButtons deleteAssignment={() => onRemoveAssignment(assignment._id)} />
+                }
               </div>
             </ListGroupItem>
             ))}

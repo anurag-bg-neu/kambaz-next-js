@@ -10,11 +10,11 @@ import { RootState } from "../../../store";
 export default function ModulesControls(
   { moduleName, setModuleName, addModule }:
   { moduleName: string; setModuleName: (title: string) => void; addModule: () => void; }) {
-    const [show, setShow] = useState(false);
+    const [ show, setShow ] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const { currentUser } = useSelector((state: RootState) => state.accountReducer);
-    const [studentView, setstudentView] =  useState(true);
+    const [ studentView, setstudentView ] =  useState(true);
 
     useEffect(() => {
       if ( currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN") {

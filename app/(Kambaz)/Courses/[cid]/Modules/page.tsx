@@ -33,6 +33,7 @@ export default function Modules() {
   const [ moduleName, setModuleName ] = useState("");
   const { modules } = useSelector((state: RootState) => state.modulesReducer);
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const [ studentView, setstudentView ] =  useState(true);
 
   const dispatch = useDispatch();
 
@@ -61,6 +62,11 @@ export default function Modules() {
   useEffect(() => {
     if (!cid || !currentUser) return;
     fetchModules();
+    if ( currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN") {
+        setstudentView(false);
+    } else {
+        setstudentView(true);
+    }
   }, [cid, currentUser, fetchModules]);
 
   return (
@@ -75,7 +81,10 @@ export default function Modules() {
               key={module._id}
               className="wd-module p-0 mb-5 fs-5 border-gray">
               <div className="wd-title p-3 ps-2 bg-secondary">
-                <BsGripVertical className="me-2 fs-3" />
+                {!studentView &&
+                  <BsGripVertical className="me-2 fs-3" />
+                }
+                <span className="dropdown-toggle me-2"></span>
                 {!module.editing && module.name}
                 { module.editing && (
                   <FormControl className="w-50 d-inline-block"
@@ -87,10 +96,12 @@ export default function Modules() {
                       }}
                       defaultValue={module.name}/>
                 )}
+                {!studentView &&
                 <ModuleControlButtons
                   moduleId={module._id}
                   deleteModule={(moduleId) => onRemoveModule(moduleId)}
                   editModule={(moduleId) => onUpdateModule({ ...module, _id: moduleId, editing: true}) } />
+                }
               </div>
 
               {module.lessons && (
@@ -99,8 +110,14 @@ export default function Modules() {
                     <ListGroupItem
                       key={lesson._id}
                       className="wd-lesson p-3 ps-1">
-                      <BsGripVertical className="me-2 fs-3" /> {lesson.name}{" "}
-                      <LessonControlButtons />
+                      {!studentView &&
+                        <>
+                          <BsGripVertical className="me-2 fs-3" />
+                        </>
+                      } {lesson.name}{" "}
+                      {!studentView &&
+                        <LessonControlButtons />
+                      }
                     </ListGroupItem>
                   ))}
                 </ListGroup>

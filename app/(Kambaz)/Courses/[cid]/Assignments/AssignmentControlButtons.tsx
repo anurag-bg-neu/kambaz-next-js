@@ -21,9 +21,11 @@ export default function AssignmentControlButtons() {
         40% of Total
       </div>
       {!studentView &&
+      <>
         <IoAdd size={24} color="black" />
+        <IoEllipsisVertical className="fs-4" />
+      </>
       }
-      <IoEllipsisVertical className="fs-4" />
     </div>
   );
 }
