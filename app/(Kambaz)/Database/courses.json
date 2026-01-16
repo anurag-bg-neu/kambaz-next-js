@@ -182,6 +182,26 @@
     "credits": 4,
     "description": "This course explores the complex relationships and diplomatic interactions among the different races of Middle-earth: Elves, Men, Dwarves, and Wizards. Topics include the study of historical alliances, conflicts, and the role of leadership and wisdom in maintaining peace. Students will engage in discussions and case studies on key events in Middle-earth's history, such as the Council of Elrond and the War of the Ring, to understand the principles of diplomacy and conflict resolution in a multi-species context.",
     "author": "654f9ec2ea7ead465908d1e3"
+  },
+  {
+  "_id": "4b304e89-7e40-4e4c-8b57-d0fa2a7a600c",
+  "name": "Test New Course in db",
+  "number": "000",
+  "credits": 0,
+  "description": "Test New Description in db",
+  "modules": [
+    {
+      "_id": "78dd6342-675f-4037-9945-26a5592cbbec",
+      "name": "Test new module in db 1.0",
+      "lessons": []
+    },
+    {
+      "_id": "af02e292-c478-4ded-970e-8b0983ccda69",
+      "name": "Test new module in db 2.0",
+      "lessons": []
+    }
+    ]
   }
+
 ]
 
