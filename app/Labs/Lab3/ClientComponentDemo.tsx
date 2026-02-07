@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect } from "react";
+
 export default function ClientComponentDemo() {
  // This runs ONLY in the browser
- alert(
-   "Hello! This alert runs in the browser because this is a Client Component."
- );
+ useEffect(() => {
+    alert("Hello! This alert runs in the browser because this is a Client Component.");
+  }, []);
 
  return (
    <div>
