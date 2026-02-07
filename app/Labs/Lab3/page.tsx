@@ -31,7 +31,7 @@ import PathParameters from "./PathParameters";
 import TodoItem from "./todos/TodoItem";
 import TodoList from "./todos/TodoList";
 import Styles from "./Styles";
-
+import ClientComponentDemo from "./ClientComponentDemo";
 
 export default function Lab3() {
   console.log('Hello World!');
@@ -75,5 +75,6 @@ export default function Lab3() {
      <h3>Todo Item</h3>
      <TodoItem /><hr />
      <TodoList />
+     <ClientComponentDemo />
     </div>
 );}

@@ -65,22 +65,28 @@ export default function Profile() {
        <div>
          <FormControl id="wd-username" className="mb-2"
            value={profile.username || "" }
-           onChange={(e) => setProfile({ ...profile, username: e.target.value }) } />
+           onChange={(e) => setProfile({ ...profile, username: e.target.value }) }
+           placeholder="username"/>
          <FormControl id="wd-password" className="mb-2"
            value={profile.password || "" }
-           onChange={(e) => setProfile({ ...profile, password: e.target.value }) } />
+           onChange={(e) => setProfile({ ...profile, password: e.target.value }) }
+           placeholder="password"/>
          <FormControl id="wd-firstname" className="mb-2"
            value={profile.firstName || "" }
-           onChange={(e) => setProfile({ ...profile, firstName: e.target.value }) } />
+           onChange={(e) => setProfile({ ...profile, firstName: e.target.value }) }
+           placeholder="first name"/>
          <FormControl id="wd-lastname" className="mb-2"
            value={profile.lastName || "" }
-           onChange={(e) => setProfile({ ...profile, lastName: e.target.value }) } />
+           onChange={(e) => setProfile({ ...profile, lastName: e.target.value }) }
+           placeholder="last name"/>
          <FormControl id="wd-dob" className="mb-2" type="date"
            value={toDateOnly(profile.dob) || "" }
-           onChange={(e) => setProfile({ ...profile, dob: e.target.value })} />
+           onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
+           placeholder="date of birth"/>
          <FormControl id="wd-email" className="mb-2"
            value={profile.email || "" }
-           onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
+           onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+           placeholder="email"/>
          <select className="form-control mb-2" id="wd-role"
            value={profile.role || "" }
            onChange={(e) => setProfile({ ...profile, role: e.target.value })} >

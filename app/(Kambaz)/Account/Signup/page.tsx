@@ -71,6 +71,14 @@ export default function Signup() {
       placeholder="username"
       className="mb-2"
       />
+      <select className="form-control mb-2" id="wd-role"
+           value={user.role || "" }
+           onChange={(e) => setUser({ ...user, role: e.target.value })} >
+           <option value="USER">User</option>
+           <option value="ADMIN">Admin</option>
+           <option value="FACULTY">Faculty</option>{" "}
+           <option value="STUDENT">Student</option>
+      </select>
       <FormControl
       defaultValue={user.password}
       onChange={(e) => setUser({ ...user, password: e.target.value })}

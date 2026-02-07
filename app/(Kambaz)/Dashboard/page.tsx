@@ -138,12 +138,12 @@ export default function Dashboard() {
 
   return (
     <div id="wd-dashboard wd-css-flex">
-      <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
+      <h1 id="wd-dashboard-title">Dashboard - Welcome {currentUser?.firstName}!</h1> <hr />
       <div className="align-items-center d-flex">
       <h5 className="mb-0">Enrollments</h5>
       <Button className="btn btn-primary mb-2 ms-auto"
-                  id="wd-enrollments-toggle"
-                  onClick={() => setShowAllCourses(!showAllCourses)}> {showAllCourses ? "Show My Courses" : "Show All Courses"}
+              id="wd-enrollments-toggle"
+              onClick={() => setShowAllCourses(!showAllCourses)}> {showAllCourses ? "Show My Courses" : "Show All Courses"}
       </Button>
       </div>
       <hr />
