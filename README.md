@@ -1,37 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kambaz LMS
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15-000000?logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
 
-First, run the development server:
+Full-stack **Learning Management System** frontend built with Next.js 15 App Router — a Kambaz clone developed for Northeastern University's CS5610 Web Development course.
+
+## Features
+
+- Authentication flow — sign up, sign in, profile management
+- Dashboard with responsive course grid (Bootstrap 5)
+- Nested dynamic routes for courses, modules, and assignments
+- Full CRUD UI — create, edit, and delete modules and assignments
+- Role-aware navigation (Faculty, Student, TA, Admin)
+- Educational labs covering CSS, Bootstrap, layout systems, and React Icons
+
+## Tech Stack
+
+| Layer        | Technology                              |
+|--------------|-----------------------------------------|
+| Framework    | Next.js 15 (App Router + Turbopack)     |
+| Language     | TypeScript 5 (strict)                   |
+| UI Library   | React 19                                |
+| Styling      | Bootstrap 5 + React Bootstrap           |
+| Icons        | React Icons 5                           |
+| HTTP Client  | Axios                                   |
+| Linting      | ESLint 9 (Next.js ruleset)              |
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/anurag-bg-neu/kambaz-next-js.git
+cd kambaz-next-js
+npm install
+npm run dev          # starts on http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> **Requires** Node.js 18+ and the [Kambaz Node Server](https://github.com/anurag-bg-neu/kambaz-node-server-app) running on port 4000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create `.env.development` in the project root:
 
-## Learn More
+```env
+NEXT_PUBLIC_HTTP_SERVER=http://localhost:4000
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Key Routes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Route                              | Description                      |
+|------------------------------------|----------------------------------|
+| `/Account/Signin`                  | Login page (default redirect)    |
+| `/Account/Signup`                  | Registration                     |
+| `/Account/Profile`                 | User profile & settings          |
+| `/Dashboard`                       | All enrolled courses grid        |
+| `/Courses/:cid/Home`               | Course overview & status         |
+| `/Courses/:cid/Modules`            | Module list with inline editing  |
+| `/Courses/:cid/Assignments`        | Assignment list                  |
+| `/Courses/:cid/Assignments/:aid`   | Assignment detail & editor       |
+| `/Courses/:cid/Grades`             | Grades view                      |
+| `/Labs`                            | Interactive CSS & React labs     |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+kambaz-next-js/
+├── app/
+│   ├── (Kambaz)/               # Route group — LMS application
+│   │   ├── Account/            # Auth pages (Signin, Signup, Profile)
+│   │   ├── Dashboard/          # Course grid + cards
+│   │   ├── Courses/[cid]/      # Dynamic course routes
+│   │   │   ├── Home/
+│   │   │   ├── Modules/
+│   │   │   ├── Assignments/[aid]/
+│   │   │   ├── Grades/
+│   │   │   └── People/
+│   │   └── Navigation.tsx      # Global sidebar
+│   ├── Labs/                   # Educational lab exercises
+│   │   ├── Lab1/ Lab2/ Lab3/
+│   │   └── TOC.tsx
+│   ├── layout.tsx              # Root layout (Bootstrap CSS, Geist font)
+│   └── page.tsx                # Redirects → /Account/Signin
+├── public/images/              # Static assets
+├── next.config.ts
+├── tsconfig.json
+└── package.json
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# kambaz-next-js
+```bash
+npm run dev      # Turbopack dev server — http://localhost:3000
+npm run build    # Production build (Turbopack)
+npm run start    # Serve production build
+npm run lint     # ESLint
+```
+
+## License
+
+ISC © [Anurag Bheemappa Gnanamurthy](https://github.com/anurag-bg-neu)
