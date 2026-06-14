@@ -1,44 +1,115 @@
 "use client";
+import "./styles.css";
+import Link from "next/link";
+import * as client from "../../../client";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import "./styles.css";
+import { useParams } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { RootState } from "../../../../store";
+import { setAssignments } from "../reducer";
+
+const defaultAssignment = {
+  _id: "",
+  title: "",
+  course: "",
+  description: "" ,
+  points: "",
+  dueDate: "",
+  availableDate: "",
+  untilDate: ""
+}
+
+type Assignment = {
+  _id: string,
+  title?: string,
+  course?: string,
+  description?: string,
+  points?: string,
+  dueDate?: string,
+  availableDate?: string,
+  untilDate?: string,
+}
 
 export default function AssignmentEditor() {
+  const { cid } = useParams();
+  const { aid } = useParams();
+  const assignmentsPath = `/Courses/${cid}/Assignments`;
+  const [ assignment, setAssignment ] = useState(defaultAssignment);
+
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+
+  const dispatch = useDispatch();
+
+  const onCreateAssignmentForCourse = async () => {
+    if (!cid) return;
+    const courseId = Array.isArray(cid) ? cid[0] : cid;
+    const newAssignmentData = await client.createAssignmentForCourse(courseId, assignment);
+    dispatch(setAssignments([...assignments, newAssignmentData]));
+  };
+
+  const onUpdateAssignment = async (assignment: Assignment) => {
+    await client.updateAssignment(assignment);
+    const newAssignments = assignments.map((a: Assignment) => a._id === assignment._id ? assignment : a );
+    dispatch(setAssignments(newAssignments));
+  };
+
+  const addOrUpdateAssignment = () => {
+    const foundAssignment = assignment.title === "" ? false : true;
+    if ( foundAssignment ) {
+        onUpdateAssignment(assignment);
+    } else {
+        onCreateAssignmentForCourse();
+    }
+  }
+
+  const toDateOnly = (iso : string | undefined) => {
+    if (!iso) return "";
+    return iso.split("T")[0];
+  };
+
+  useEffect(() => {
+    const foundAssignment = assignments.find((a: Assignment) => a._id == aid );
+    if ( foundAssignment ) {
+        setAssignment(foundAssignment);
+    } else {
+        setAssignment(defaultAssignment);
+    }
+  }, [aid, assignments, currentUser]);
+
   return (
     <div id="wd-assignments-editor">
       <Form>
         <Row>
             <Form.Group className="mb-2">
                 Assignment Name
-                <Form.Control defaultValue="A1" placeholder="Assignment Name" />
+                <Form.Control defaultValue={assignment?.title || ""} placeholder="Assignment Name"
+                onChange={ (e) => setAssignment({ ...assignment, title: e.target.value }) } />
             </Form.Group>
 
             <Form.Group className="mb-2">
             <Form.Control
                 as="textarea"
                 rows={8}
-                defaultValue={`The assignment is available online
-                Submit a link to the landing page of your Web application running on Vercel.
-                The landing page should include:
-                Your full name and section
-                Links to each of the lab assignments
-                Links to the Kambaz application
-                Links to all relevant source code repositories
-                The Kambaz application should include a link to navigate back to the landing page.`}
+                defaultValue={assignment?.description || ""}
+                onChange={ (e) => setAssignment({ ...assignment, description: e.target.value }) }
             />
             </Form.Group>
         </Row>
-
 
         <Row>
             <Col className="d-flex justify-content-end">Points</Col>
             <Col className="col-7">
                 <Form.Group className="mb-2">
-                <Form.Control defaultValue={100} type="number" placeholder="Points" />
+                <Form.Control defaultValue={assignment?.points} type="number" placeholder="Points"
+                onChange={ (e) => setAssignment({ ...assignment, points: e.target.value }) } />
                 </Form.Group>
             </Col>
         </Row>
+
         <Row>
             <Col className="d-flex justify-content-end">Assignment Group</Col>
             <Col className="col-7">
@@ -52,6 +123,7 @@ export default function AssignmentEditor() {
             </Form.Group>
             </Col>
         </Row>
+
         <Row>
             <Col className="d-flex justify-content-end">Display Grade as</Col>
             <Col className="col-7">
@@ -96,30 +168,37 @@ export default function AssignmentEditor() {
 
                 <Form.Group className="mb-2">
                     <div><b>Due</b></div>
-                    <Form.Control type="date" placeholder="Due" />
+                    <Form.Control type="date" placeholder="Due" value={toDateOnly(assignment?.dueDate)}
+                    onChange={ (e) => setAssignment({ ...assignment, dueDate: e.target.value }) } />
                 </Form.Group>
 
                 <Row>
                     <Col>
                     <Form.Group className="mb-2">
                         <div><b>Available From</b></div>
-                        <Form.Control type="date" placeholder="MM-DD-YYYY" />
+                        <Form.Control type="date" placeholder="MM-DD-YYYY" value={toDateOnly(assignment?.availableDate)}
+                        onChange={ (e) => setAssignment({ ...assignment, availableDate: e.target.value }) } />
                     </Form.Group>
                     </Col>
                     <Col>
                     <Form.Group className="mb-2">
                         <div><b>Until</b></div>
-                        <Form.Control type="date" placeholder="MM-DD-YYYY" />
+                        <Form.Control type="date" placeholder="MM-DD-YYYY" value={toDateOnly(assignment?.untilDate)}
+                        onChange={ (e) => setAssignment({ ...assignment, untilDate: e.target.value }) } />
                     </Form.Group>
                     </Col>
                 </Row>
             </Col>
         </Row>
         <div className="d-flex justify-content-end mt-4">
-            <Button variant="secondary" className="me-2">Cancel</Button>
-            <Button variant="primary">Save</Button>
+            <Link href={assignmentsPath} passHref>
+                <Button variant="secondary" className="me-2"
+                onClick={() => setAssignment(defaultAssignment) } >Cancel</Button>
+            </Link>
+            <Link href={assignmentsPath} passHref>
+                <Button variant="primary" onClick={() => {addOrUpdateAssignment()} } >Save</Button>
+            </Link>
         </div>
       </Form>
     </div>
-  );
-}
+  );}

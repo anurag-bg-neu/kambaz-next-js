@@ -1,3 +1,4 @@
+"use client";
 import { MdDoNotDisturbAlt } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { BiImport } from "react-icons/bi";
@@ -7,27 +8,48 @@ import { VscTarget } from "react-icons/vsc";
 import { TiChartBar } from "react-icons/ti";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { FaRegBell } from "react-icons/fa6";
-
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 export default function CourseStatus() {
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const [studentView, setstudentView] =  useState(true);
+
+  useEffect(() => {
+    if ( !currentUser ) {
+      return;
+    }
+    if ( currentUser.role === "FACULTY" || currentUser.role === "ADMIN") {
+        setstudentView(false);
+    } else {
+        setstudentView(true);
+    }
+  }, [currentUser]);
+
  return (
    <div id="wd-course-status" style={{ width: "350px" }}>
      <h2>Course Status</h2>
-     <div className="d-flex">
-       <div className="w-50 pe-1">
-         <Button variant="secondary" size="lg" className="w-100 text-nowrap ">
-           <MdDoNotDisturbAlt className="me-2 fs-5" /> Unpublish </Button> </div>
-       <div className="w-50">
-         <Button variant="success" size="lg" className="w-100">
-           <FaCheckCircle className="me-2 fs-5" /> Publish </Button> </div>
-     </div>
-     <br />
-     <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
-       <BiImport className="me-2 fs-5" /> Import Existing Content
-     </Button>
-     <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
-       <TbArrowLeftFromArc className="me-2 fs-5" /> Import From Commons
-     </Button>
+     <br /><br />
+     {!studentView &&
+      <>
+      <div className="d-flex">
+        <div className="w-50 pe-1">
+          <Button variant="secondary" size="lg" className="w-100 text-nowrap ">
+            <MdDoNotDisturbAlt className="me-2 fs-5" /> Unpublish </Button> </div>
+        <div className="w-50">
+          <Button variant="success" size="lg" className="w-100">
+            <FaCheckCircle className="me-2 fs-5" /> Publish </Button> </div>
+      </div>
+      <br />
+      <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
+        <BiImport className="me-2 fs-5" /> Import Existing Content
+      </Button>
+      <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
+        <TbArrowLeftFromArc className="me-2 fs-5" /> Import From Commons
+      </Button>
+      </>
+     }
      <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
        <VscTarget className="me-2 fs-5" /> Choose Home Page
      </Button>

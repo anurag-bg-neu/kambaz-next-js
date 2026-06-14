@@ -1,53 +1,130 @@
-import ModulesControls from './ModulesControls';
-import ModuleControlButtons from './ModuleControlButtons';
-import LessonControlButtons from './LessonControlButtons';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+"use client";
+import { FormControl } from "react-bootstrap";
+import ModulesControls from "./ModulesControls";
+import ModuleControlButtons from "./ModuleControlButtons";
+import LessonControlButtons from "./LessonControlButtons";
+import { ListGroup, ListGroupItem } from "reactstrap";
 import { BsGripVertical } from "react-icons/bs";
+import { useState, useEffect, useCallback } from "react";
+import { useParams } from "next/navigation";
+import { setModules} from "./reducer";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../store";
+import * as client from "../../client";
+
+type Lesson = {
+  _id?: string,
+  name?: string,
+  description?: string,
+  module?: string,
+}
+
+type Module = {
+  _id: string,
+  name?: string,
+  description?: string,
+  course?: string,
+  editing?: boolean,
+  lessons?: Array<Lesson>
+}
 
 export default function Modules() {
-  return (
-  <div id="module-below-toggle">
-    <ModulesControls /><br /><br /><br /><br />
-    <ListGroup className="rounded-0" id="wd-modules">
-      <ListGroupItem className="wd-module p-0 mb-5 fs-5 border-gray">
-        <div className="wd-title p-3 ps-2 bg-secondary">
-          <BsGripVertical className="me-2 fs-3" /> Week 1 <ModuleControlButtons />
-        </div>
-        <ListGroup className="wd-lessons rounded-0">
-          <ListGroupItem className="wd-lesson p-3 ps-1">
-            <BsGripVertical className="me-2 fs-3" /> LEARNING OBJECTIVES <LessonControlButtons />
-          </ListGroupItem>
-          <ListGroupItem className="wd-lesson p-3 ps-1">
-            <BsGripVertical className="me-2 fs-3" /> Introduction to the course <LessonControlButtons />
-          </ListGroupItem>
-          <ListGroupItem className="wd-lesson p-3 ps-1">
-            <BsGripVertical className="me-2 fs-3" /> Learn what is Web Development <LessonControlButtons />
-          </ListGroupItem>
-          <ListGroupItem className="wd-lesson p-3 ps-1">
-            <BsGripVertical className="me-2 fs-3" /> LESSON 1 <LessonControlButtons />
-          </ListGroupItem>
-          <ListGroupItem className="wd-lesson p-3 ps-1">
-            <BsGripVertical className="me-2 fs-3" /> LESSON 2 <LessonControlButtons />
-          </ListGroupItem>
-        </ListGroup>
-      </ListGroupItem>
-      <ListGroupItem className="wd-module p-0 mb-5 fs-5 border-gray">
-        <div className="wd-title p-3 ps-2 bg-secondary">
-          <BsGripVertical className="me-2 fs-3" /> Week 2 <ModuleControlButtons />
-        </div>
-        <ListGroup className="wd-lessons rounded-0">
-          <ListGroupItem className="wd-lesson p-3 ps-1">
-            <BsGripVertical className="me-2 fs-3" /> LEARNING OBJECTIVES <LessonControlButtons />
-          </ListGroupItem>
-          <ListGroupItem className="wd-lesson p-3 ps-1">
-            <BsGripVertical className="me-2 fs-3" /> LESSON 1 <LessonControlButtons />
-          </ListGroupItem>
-          <ListGroupItem className="wd-lesson p-3 ps-1">
-            <BsGripVertical className="me-2 fs-3" /> LESSON 2 <LessonControlButtons />
-          </ListGroupItem>
-        </ListGroup>
-      </ListGroupItem>
-    </ListGroup>
-  </div>
+  const { cid } = useParams();
+  const [ moduleName, setModuleName ] = useState("");
+  const { modules } = useSelector((state: RootState) => state.modulesReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const [ studentView, setstudentView ] =  useState(true);
 
-);}
+  const dispatch = useDispatch();
+
+  const onCreateModuleForCourse = async () => {
+    const newModule = { name: moduleName, course: cid as string };
+    const newModuleData = await client.createModuleForCourse(cid as string, newModule);
+    dispatch(setModules([...modules, newModuleData]));
+  };
+
+  const onRemoveModule = async (moduleId: string) => {
+    await client.deleteModule(cid as string, moduleId);
+    dispatch(setModules(modules.filter((m: Module) => m._id !== moduleId)));
+  };
+
+  const onUpdateModule = async (module: Module) => {
+    await client.updateModule(cid as string, module);
+    const newModules = modules.map((m: Module) => m._id === module._id ? module : m );
+    dispatch(setModules(newModules));
+  };
+
+  const fetchModules = useCallback(async () => {
+    const modules = await client.findModulesForCourse(cid as string);
+    dispatch(setModules(modules));
+  }, [cid, dispatch]);
+
+  useEffect(() => {
+    if (!cid || !currentUser) return;
+    fetchModules();
+    if ( currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN") {
+        setstudentView(false);
+    } else {
+        setstudentView(true);
+    }
+  }, [cid, currentUser, fetchModules]);
+
+  return (
+    <div id="module-below-toggle">
+      <ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={onCreateModuleForCourse} />
+      <br /><br /><br />
+
+      <ListGroup className="wd-modules rounded-0">
+        {modules
+          .map((module: Module) => (
+            <ListGroupItem
+              key={module._id}
+              className="wd-module p-0 mb-5 fs-5 border-gray">
+              <div className="wd-title p-3 ps-2 bg-secondary">
+                {!studentView &&
+                  <BsGripVertical className="me-2 fs-3" />
+                }
+                <span className="dropdown-toggle me-2"></span>
+                {!module.editing && module.name}
+                { module.editing && (
+                  <FormControl className="w-50 d-inline-block"
+                      onChange={(e) => onUpdateModule({ ...module, name: e.target.value })}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          onUpdateModule({ ...module, editing: false });
+                        }
+                      }}
+                      defaultValue={module.name}/>
+                )}
+                {!studentView &&
+                <ModuleControlButtons
+                  moduleId={module._id}
+                  deleteModule={(moduleId) => onRemoveModule(moduleId)}
+                  editModule={(moduleId) => onUpdateModule({ ...module, _id: moduleId, editing: true}) } />
+                }
+              </div>
+
+              {module.lessons && (
+                <ListGroup className="wd-lessons rounded-0">
+                  {module.lessons.map((lesson) => (
+                    <ListGroupItem
+                      key={lesson._id}
+                      className="wd-lesson p-3 ps-1">
+                      {!studentView &&
+                        <>
+                          <BsGripVertical className="me-2 fs-3" />
+                        </>
+                      } {lesson.name}{" "}
+                      {!studentView &&
+                        <LessonControlButtons />
+                      }
+                    </ListGroupItem>
+                  ))}
+                </ListGroup>
+              )}
+            </ListGroupItem>
+          ))}
+      </ListGroup>
+    </div>
+  );
+}

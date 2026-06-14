@@ -21,7 +21,15 @@ export default function Labs() {
            Lab 3: JavaScript Fundamentals </Link>
        </li>
        <li>
-         <Link href="/Account/Signin" id="wd-kambaz-link">
+         <Link href="/Labs/Lab4" id="wd-lab4-link">
+           Lab 4: State in React </Link>
+       </li>
+       <li>
+         <Link href="/Labs/Lab5" id="wd-lab5-link">
+           Lab 5: Server </Link>
+       </li>
+       <li>
+         <Link href="/Account/Profile" id="wd-kambaz-link">
            Kambaz </Link>
        </li>
      </ul>
