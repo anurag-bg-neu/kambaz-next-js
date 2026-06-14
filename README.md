@@ -99,4 +99,4 @@ npm run lint     # ESLint
 
 ## License
 
-ISC © [Anurag Bheemappa Gnanamurthy](https://github.com/anurag-bg-neu)
+MIT © [Anurag Bheemappa Gnanamurthy](https://github.com/anurag-bg-neu)
