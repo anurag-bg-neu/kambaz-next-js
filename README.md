@@ -5,9 +5,9 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
 
-> **Live Demo →** <https://anurag-bg-kambaz.vercel.app>
+> **Live UI Demo →** <https://anurag-bg-kambaz.vercel.app>
 
-Full-stack **Learning Management System** frontend built with Next.js 15 App Router — a Kambaz clone developed for Northeastern University's CS5610 Web Development course.
+NextJS & React frontend for **Kambaz** — a full-stack web application built to simulate an online **Learning Management System**.
 
 ## Features
 
@@ -43,7 +43,7 @@ npm run dev          # Turbopack dev server — http://localhost:3000
 
 ## Production Deployment
 
-Deployed on **Vercel** at <https://anurag-bg-kambaz.vercel.app>. On each push to `main`, Vercel runs:
+Deployed on **Vercel** at [Kambaz Client UI](https://anurag-bg-kambaz.vercel.app). On each push to `main`, Vercel runs:
 
 | Step  | Command                                     |
 |-------|---------------------------------------------|
