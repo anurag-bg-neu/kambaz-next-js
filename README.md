@@ -43,7 +43,7 @@ npm run dev          # Turbopack dev server — http://localhost:3000
 
 ## Production Deployment
 
-Deployed on **Vercel** at [Kambaz Client UI](https://anurag-bg-kambaz.vercel.app). On each push to `main`, Vercel runs:
+Deployed on **Vercel** at [Live Kambaz Client](https://anurag-bg-kambaz.vercel.app). On each push to `main`, Vercel runs:
 
 | Step  | Command                                     |
 |-------|---------------------------------------------|
